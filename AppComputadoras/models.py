@@ -17,12 +17,14 @@ class Mouse(models.Model):
     fecha_creacion_mouse = models.DateTimeField(auto_now=True)
     fecha_modificacion_mouse = models.DateTimeField(auto_now=True) 
 
+
     class Meta:
         verbose_name = 'Mouse'
         verbose_name_plural = 'Mouses'
 
     def __str__(self):
           return str(self.serial_mouse)
+          
 
 class Teclado(models.Model):
     marca_teclado = models.CharField(max_length=100)

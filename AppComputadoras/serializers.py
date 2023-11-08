@@ -1,10 +1,25 @@
 from rest_framework import serializers
 from AppComputadoras.models import *
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 class MouseSerializers(serializers.Serializer):
     class Meta:
         model = Mouse
         fields = '__all__'
+"""
+    def update(self, instance, validated_data):
+        for key, value in validated_data.items():
+            setattr(instance, key, value)
+        instance.save()
+        return instance
+
+    def to_internal_value(self, data):
+        data = super().to_internal_value(data)
+        for key, value in data.items():
+            if isinstance(value, InMemoryUploadedFile):
+                data[key] = value.file.read()
+        return data
+"""
 
 class TecladoSerializers(serializers.Serializer):
     class Meta:
@@ -51,7 +66,8 @@ class ImpresorasSerializers(serializers.Serializer):
         model = Impresoras
         fields = '__all__'
 
-class Accesorios(serializers.Serializer):
+class AccesoriosSerializers(serializers.Serializer):
     class Meta:
         model = Accesorios
         fields = '__all__'
+
