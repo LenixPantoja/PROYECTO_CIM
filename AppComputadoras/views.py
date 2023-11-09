@@ -6,11 +6,13 @@ from rest_framework import status
 from django.http import Http404
 from rest_framework import generics
 from django.http import JsonResponse
-from base64 import *
 """ Modelos """
 from AppComputadoras.serializers import *
 from AppComputadoras.models import *
-from django.core.files.uploadedfile import InMemoryUploadedFile
+""" Otras Librerias """
+from django.core.files.storage import default_storage
+from pathlib import *
+
 
 class AppComputers_API_CrearMouse(APIView):
     def post(self, request, format = None):
@@ -21,6 +23,12 @@ class AppComputers_API_CrearMouse(APIView):
 
             if serializer.is_valid():
                 dataMouse = request.data
+                files_path = 'mouses/' + dataMouse['serial_mouse'] + '/'
+                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_registro_fotografico_mouse.png', dataMouse['registro_fotografico_mouse'])
+                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_requisicion_mouse.png', dataMouse['foto_requisicion_mouse'])
+                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_acta_salida.png', dataMouse['foto_acta_salida'])
+                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_acta_recepcion.png', dataMouse['foto_acta_recepcion'])
+                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_factura.png', dataMouse['foto_factura'])
                 mouse = Mouse(
                     marca_mouse = dataMouse['marca_mouse'],
                     modelo_mouse = dataMouse['modelo_mouse'],
@@ -28,11 +36,11 @@ class AppComputers_API_CrearMouse(APIView):
                     fecha_adquisicion_mouse =  dataMouse['fecha_adquisicion_mouse'],
                     fecha_instalacion_mouse = dataMouse['fecha_instalacion_mouse'],
                     fecha_garantia_mouse = dataMouse['fecha_garantia_mouse'],
-                    registro_fotografico_mouse  = dataMouse['registro_fotografico_mouse'].read(),
-                    foto_requisicion_mouse = dataMouse['foto_requisicion_mouse'].read(),
-                    foto_acta_salida = dataMouse['foto_acta_salida'].read(),
-                    foto_acta_recepcion = dataMouse['foto_acta_recepcion'].read(),
-                    foto_factura = dataMouse['foto_factura'].read()
+                    registro_fotografico_mouse  = files_path + 'registro_fotografico_mouse.png',
+                    foto_requisicion_mouse = files_path + 'foto_requisicion_mouse.png',
+                    foto_acta_salida = files_path + 'foto_acta_salida.png',
+                    foto_acta_recepcion = files_path + 'foto_acta_recepcion.png',
+                    foto_factura = files_path + 'foto_factura.png'
                 )
                 mouse.save()
                 return Response({'mensaje': 'Se creo el mouse :)'})
@@ -46,6 +54,12 @@ class AppComputers_API_CrearTeclado(APIView):
 
             if serializer.is_valid():
                 dataTeclado = request.data
+                files_path = 'teclados/' + dataTeclado['serial_teclado'] + '/'
+                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_registro_fotografico_teclado.png', dataTeclado['registro_fotografico_teclado'])
+                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_requisicion_teclado.png', dataTeclado['foto_requisicion_teclado'])
+                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_acta_salida_teclado.png', dataTeclado['foto_acta_salida_teclado'])
+                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_acta_recepcion_teclado.png', dataTeclado['foto_acta_recepcion_teclado'])
+                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_factura_teclado.png', dataTeclado['foto_factura_teclado'])
                 teclado = Teclado(
                     marca_teclado = dataTeclado['marca_teclado'],
                     modelo_teclado = dataTeclado['modelo_teclado'],
@@ -53,11 +67,11 @@ class AppComputers_API_CrearTeclado(APIView):
                     fecha_adquisicion_teclado = dataTeclado['fecha_adquisicion_teclado'],
                     fecha_instalacion_teclado = dataTeclado['fecha_instalacion_teclado'],
                     fecha_garantia_teclado = dataTeclado['fecha_garantia_teclado'],
-                    registro_fotografico_teclado = dataTeclado['registro_fotografico_teclado'].read(),
-                    foto_requisicion_teclado = dataTeclado['foto_requisicion_teclado'].read(),
-                    foto_acta_salida_teclado = dataTeclado['foto_acta_salida_teclado'].read(),
-                    foto_acta_recepcion_teclado = dataTeclado['foto_acta_recepcion_teclado'].read(),
-                    foto_factura_teclado = dataTeclado['foto_factura_teclado'].read()
+                    registro_fotografico_teclado = files_path + 'registro_fotografico_teclado.png',
+                    foto_requisicion_teclado = files_path + 'foto_requisicion_teclado.png',
+                    foto_acta_salida_teclado = files_path + 'foto_acta_salida_teclado.png',
+                    foto_acta_recepcion_teclado = files_path + 'foto_acta_recepcion_teclado.png',
+                    foto_factura_teclado = files_path + 'foto_factura_teclado.png'
                 )
                 teclado.save()
             return Response({'mensaje': 'Se creo el teclado'})
@@ -71,6 +85,12 @@ class AppComputers_API_CrearMonitor(APIView):
 
             if serializer.is_valid():
                 dataMonitor = request.data
+                files_path = 'monitores/' + dataMonitor['serial_monitor'] + '/'
+                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_registro_fotografico_monitor.png', dataMonitor['registro_fotografico_monitor'])
+                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_requisicion_monitor.png', dataMonitor['foto_requisicion_monitor'])
+                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_acta_salida_monitor.png', dataMonitor['foto_acta_salida_monitor'])
+                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_acta_recepcion_monitor.png', dataMonitor['foto_acta_recepcion_monitor'])
+                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_factura_monitor.png', dataMonitor['foto_factura_monitor'])
                 monitor = Monitor(
                     codigo_interno_monitor = dataMonitor['codigo_interno_monitor'],
                     marca_monitor = dataMonitor['marca_monitor'],
@@ -80,11 +100,11 @@ class AppComputers_API_CrearMonitor(APIView):
                     fecha_adquisicion_monitor = dataMonitor['fecha_adquisicion_monitor'],
                     fecha_instalacion_monitor = dataMonitor['fecha_instalacion_monitor'],
                     fecha_garantia_monitor = dataMonitor['fecha_garantia_monitor'],
-                    registro_fotografico_monitor = dataMonitor['registro_fotografico_monitor'].read(),
-                    foto_requisicion_monitor = dataMonitor['foto_requisicion_monitor'].read(),
-                    foto_acta_salida_monitor = dataMonitor['foto_acta_salida_monitor'].read(),
-                    foto_acta_recepcion_monitor = dataMonitor['foto_acta_recepcion_monitor'].read(),
-                    foto_factura_monitor = dataMonitor['foto_factura_monitor'].read()
+                    registro_fotografico_monitor = files_path + 'registro_fotografico_monitor.png',
+                    foto_requisicion_monitor = files_path + 'foto_requisicion_monitor.png',
+                    foto_acta_salida_monitor = files_path + 'foto_acta_salida_monitor.png',
+                    foto_acta_recepcion_monitor = files_path + 'foto_acta_recepcion_monitor.png',
+                    foto_factura_monitor = files_path + 'foto_factura_monitor.png'
                 )
                 monitor.save()
             return Response({'mensaje': 'Se creo el monitor'})
@@ -98,6 +118,12 @@ class AppComputers_API_CrearTorre(APIView):
 
             if serializer.is_valid():
                 dataTorre = request.data
+                files_path = 'monitores/' + dataTorre['serial_torre'] + '/'
+                default_storage.save(files_path + f'{dataTorre['serial_torre']}_registro_fotografico_torre.png', dataTorre['registro_fotografico_torre'])
+                default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_requisicion_torre.png', dataTorre['foto_requisicion_torre'])
+                default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_acta_salida_torre.png', dataTorre['foto_acta_salida_torre'])
+                default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_acta_recepcion_torre.png', dataTorre['foto_acta_recepcion_torre'])
+                default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_factura_torre.png', dataTorre['foto_factura_torre'])
                 torre = Torre(
                     codigo_interno_torre = dataTorre['codigo_interno_torre'],
                     dominio_torre = dataTorre['dominio_torre'],
@@ -111,11 +137,11 @@ class AppComputers_API_CrearTorre(APIView):
                     fecha_adquisicion_torre = dataTorre['fecha_adquisicion_torre'],
                     fecha_instalacion_torre = dataTorre['fecha_instalacion_torre'],
                     fecha_garantia_torre = dataTorre['fecha_garantia_torre'],
-                    registro_fotografico_torre = dataTorre['registro_fotografico_torre'].read(),
-                    foto_requisicion_torre = dataTorre['foto_requisicion_torre'].read(),
-                    foto_acta_salida_torre = dataTorre['foto_acta_salida_torre'].read(),
-                    foto_acta_recepcion_torre = dataTorre['foto_acta_recepcion_torre'].read(),
-                    foto_factura_torre = dataTorre['foto_factura_torre'].read()
+                    registro_fotografico_torre = files_path + 'registro_fotografico_torre.png',
+                    foto_requisicion_torre = files_path + 'foto_requisicion_torre.png',
+                    foto_acta_salida_torre = files_path + 'foto_acta_salida_torre.png',
+                    foto_acta_recepcion_torre = files_path + 'foto_acta_recepcion_torre.png',
+                    foto_factura_torre = files_path + 'foto_factura_torre.png'
                 )
                 torre.save()
             return Response({'mensaje': 'Se creo la torre'})
@@ -182,13 +208,105 @@ class AppComputers_API_CrearComputador(APIView):
 
             if serializer.is_valid():
                 dataComputador = request.data
+                dataMonitor = request.data
+                files_path = 'monitores/' + dataMonitor['serial_monitor'] + '/'
+                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_registro_fotografico_monitor.png', dataMonitor['registro_fotografico_monitor'])
+                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_requisicion_monitor.png', dataMonitor['foto_requisicion_monitor'])
+                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_acta_salida_monitor.png', dataMonitor['foto_acta_salida_monitor'])
+                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_acta_recepcion_monitor.png', dataMonitor['foto_acta_recepcion_monitor'])
+                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_factura_monitor.png', dataMonitor['foto_factura_monitor'])
+                monitor = Monitor(
+                    codigo_interno_monitor = dataMonitor['codigo_interno_monitor'],
+                    marca_monitor = dataMonitor['marca_monitor'],
+                    modelo_monitor = dataMonitor['modelo_monitor'],
+                    serial_monitor = dataMonitor['serial_monitor'],
+                    descripcion_monitor = dataMonitor['descripcion_monitor'],
+                    fecha_adquisicion_monitor = dataMonitor['fecha_adquisicion_monitor'],
+                    fecha_instalacion_monitor = dataMonitor['fecha_instalacion_monitor'],
+                    fecha_garantia_monitor = dataMonitor['fecha_garantia_monitor'],
+                    registro_fotografico_monitor = files_path + 'registro_fotografico_monitor.png',
+                    foto_requisicion_monitor = files_path + 'foto_requisicion_monitor.png',
+                    foto_acta_salida_monitor = files_path + 'foto_acta_salida_monitor.png',
+                    foto_acta_recepcion_monitor = files_path + 'foto_acta_recepcion_monitor.png',
+                    foto_factura_monitor = files_path + 'foto_factura_monitor.png'
+                )
+                monitor.save()
+                dataTeclado = request.data
+                files_path = 'teclados/' + dataTeclado['serial_teclado'] + '/'
+                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_registro_fotografico_teclado.png', dataTeclado['registro_fotografico_teclado'])
+                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_requisicion_teclado.png', dataTeclado['foto_requisicion_teclado'])
+                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_acta_salida_teclado.png', dataTeclado['foto_acta_salida_teclado'])
+                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_acta_recepcion_teclado.png', dataTeclado['foto_acta_recepcion_teclado'])
+                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_factura_teclado.png', dataTeclado['foto_factura_teclado'])
+                teclado = Teclado(
+                    marca_teclado = dataTeclado['marca_teclado'],
+                    modelo_teclado = dataTeclado['modelo_teclado'],
+                    serial_teclado = dataTeclado['serial_teclado'],
+                    fecha_adquisicion_teclado = dataTeclado['fecha_adquisicion_teclado'],
+                    fecha_instalacion_teclado = dataTeclado['fecha_instalacion_teclado'],
+                    fecha_garantia_teclado = dataTeclado['fecha_garantia_teclado'],
+                    registro_fotografico_teclado = files_path + 'registro_fotografico_teclado.png',
+                    foto_requisicion_teclado = files_path + 'foto_requisicion_teclado.png',
+                    foto_acta_salida_teclado = files_path + 'foto_acta_salida_teclado.png',
+                    foto_acta_recepcion_teclado = files_path + 'foto_acta_recepcion_teclado.png',
+                    foto_factura_teclado = files_path + 'foto_factura_teclado.png'
+                )
+                teclado.save()
+                dataMouse = request.data
+                files_path = 'mouses/' + dataMouse['serial_mouse'] + '/'
+                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_registro_fotografico_mouse.png', dataMouse['registro_fotografico_mouse'])
+                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_requisicion_mouse.png', dataMouse['foto_requisicion_mouse'])
+                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_acta_salida.png', dataMouse['foto_acta_salida'])
+                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_acta_recepcion.png', dataMouse['foto_acta_recepcion'])
+                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_factura.png', dataMouse['foto_factura'])
+                mouse = Mouse(
+                    marca_mouse = dataMouse['marca_mouse'],
+                    modelo_mouse = dataMouse['modelo_mouse'],
+                    serial_mouse = dataMouse['serial_mouse'],
+                    fecha_adquisicion_mouse =  dataMouse['fecha_adquisicion_mouse'],
+                    fecha_instalacion_mouse = dataMouse['fecha_instalacion_mouse'],
+                    fecha_garantia_mouse = dataMouse['fecha_garantia_mouse'],
+                    registro_fotografico_mouse  = files_path + 'registro_fotografico_mouse.png',
+                    foto_requisicion_mouse = files_path + 'foto_requisicion_mouse.png',
+                    foto_acta_salida = files_path + 'foto_acta_salida.png',
+                    foto_acta_recepcion = files_path + 'foto_acta_recepcion.png',
+                    foto_factura = files_path + 'foto_factura.png'
+                )
+                mouse.save()
+                dataTorre = request.data
+                files_path = 'monitores/' + dataTorre['serial_torre'] + '/'
+                default_storage.save(files_path + f'{dataTorre['serial_torre']}_registro_fotografico_torre.png', dataTorre['registro_fotografico_torre'])
+                default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_requisicion_torre.png', dataTorre['foto_requisicion_torre'])
+                default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_acta_salida_torre.png', dataTorre['foto_acta_salida_torre'])
+                default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_acta_recepcion_torre.png', dataTorre['foto_acta_recepcion_torre'])
+                default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_factura_torre.png', dataTorre['foto_factura_torre'])
+                torre = Torre(
+                    codigo_interno_torre = dataTorre['codigo_interno_torre'],
+                    dominio_torre = dataTorre['dominio_torre'],
+                    nombre_equipo = dataTorre['nombre_equipo'],
+                    marca_torre = dataTorre['marca_torre'],
+                    modelo_torre = dataTorre['modelo_torre'],
+                    serial_torre = dataTorre['serial_torre'],
+                    direccion_ip_torre = dataTorre['direccion_ip_torre'],
+                    direccion_mac_torre = dataTorre['direccion_mac_torre'],
+                    descripcion_torre = dataTorre['descripcion_torre'],
+                    fecha_adquisicion_torre = dataTorre['fecha_adquisicion_torre'],
+                    fecha_instalacion_torre = dataTorre['fecha_instalacion_torre'],
+                    fecha_garantia_torre = dataTorre['fecha_garantia_torre'],
+                    registro_fotografico_torre = files_path + 'registro_fotografico_torre.png',
+                    foto_requisicion_torre = files_path + 'foto_requisicion_torre.png',
+                    foto_acta_salida_torre = files_path + 'foto_acta_salida_torre.png',
+                    foto_acta_recepcion_torre = files_path + 'foto_acta_recepcion_torre.png',
+                    foto_factura_torre = files_path + 'foto_factura_torre.png'
+                )
+                torre.save()
                 computador = Computador(
                     area = dataComputador['area'],
                     workstation = dataComputador['workstation'],
-                    monitor = dataComputador['monitor'],
-                    teclado = dataComputador['teclado'],
-                    mouse = dataComputador['mouse'],
-                    torre = dataComputador['torre'],
+                    monitor = monitor,
+                    teclado = teclado,
+                    mouse = mouse,
+                    torre = torre,
                     responsable = dataComputador['responsable'],
                 )
                 computador.save()
@@ -203,6 +321,12 @@ class AppComputers_API_CrearImpresora(APIView):
 
             if serializer.is_valid():
                 dataImpresora = request.data
+                files_path = 'impresoras/' + dataImpresora['serial_impresora'] + '/'
+                default_storage.save(files_path + f'{dataImpresora['serial_impresora']}_registro_fotografico_impresora.png', dataImpresora['registro_fotografico_impresora'])
+                default_storage.save(files_path + f'{dataImpresora['serial_impresora']}_foto_requisicion_impresora.png', dataImpresora['foto_requisicion_impresora'])
+                default_storage.save(files_path + f'{dataImpresora['serial_impresora']}_foto_acta_salida_impresora.png', dataImpresora['foto_acta_salida_impresora'])
+                default_storage.save(files_path + f'{dataImpresora['serial_impresora']}_foto_acta_recepcion_impresora.png', dataImpresora['foto_acta_recepcion_impresora'])
+                default_storage.save(files_path + f'{dataImpresora['serial_impresora']}_foto_factura_impresora.png', dataImpresora['foto_factura_impresora'])
                 impresora = Impresoras(
                     computador = dataImpresora['computador'],
                     codigo_interno_impresora = dataImpresora['codigo_interno_impresora'],
@@ -213,11 +337,11 @@ class AppComputers_API_CrearImpresora(APIView):
                     fecha_adquisicion_impresora = dataImpresora['fecha_adquisicion_impresora'],
                     fecha_instalacion_impresora = dataImpresora['fecha_instalacion_impresora'],
                     fecha_garantia_impresora = dataImpresora['fecha_garantia_impresora'],
-                    registro_fotografico_impresora = dataImpresora['registro_fotografico_impresora'].read(),
-                    foto_requisicion_impresora = dataImpresora['foto_requisicion_impresora'].read(),
-                    foto_acta_salida_impresora = dataImpresora['foto_acta_salida_impresora'].read(),
-                    foto_acta_recepcion_impresora = dataImpresora['foto_acta_recepcion_impresora'].read(),
-                    foto_factura_impresora = dataImpresora['foto_factura_impresora'].read(),
+                    registro_fotografico_impresora = files_path + 'registro_fotografico_impresora.png',
+                    foto_requisicion_impresora = files_path + 'foto_requisicion_impresora.png',
+                    foto_acta_salida_impresora = files_path + 'foto_acta_salida_impresora.png',
+                    foto_acta_recepcion_impresora = files_path + 'foto_acta_recepcion_impresora.png',
+                    foto_factura_impresora = files_path + 'foto_factura_impresora.png',
                 )
                 impresora.save()
             return Response ({'mensaje': 'Se creo la impresora'})
@@ -231,6 +355,12 @@ class AppComputers_API_CrearAccesorio(APIView):
 
             if serializer.is_valid():
                 dataAccesorio = request.data
+                files_path = 'accesorios/' + dataAccesorio['serial_accesorio'] + '/'
+                default_storage.save(files_path + f'{dataAccesorio['serial_accesorio']}_registro_fotografico_accesorio.png', dataAccesorio['registro_fotografico_accesorio'])
+                default_storage.save(files_path + f'{dataAccesorio['serial_accesorio']}_foto_requisicion_accesorio.png', dataAccesorio['foto_requisicion_accesorio'])
+                default_storage.save(files_path + f'{dataAccesorio['serial_accesorio']}_foto_acta_salida_accesorio.png', dataAccesorio['foto_acta_salida_accesorio'])
+                default_storage.save(files_path + f'{dataAccesorio['serial_accesorio']}_foto_acta_recepcion_accesorio.png', dataAccesorio['foto_acta_recepcion_accesorio'])
+                default_storage.save(files_path + f'{dataAccesorio['serial_accesorio']}_foto_factura_accesorio.png', dataAccesorio['foto_factura_accesorio'])
                 accesorio = Accesorios(
                     computador = dataAccesorio['computador'],
                     codigo_interno_accesorio = dataAccesorio['codigo_interno_accesorio'],
@@ -242,11 +372,11 @@ class AppComputers_API_CrearAccesorio(APIView):
                     fecha_adquisicion_accesorio = dataAccesorio['fecha_adquisicion_accesorio'],
                     fecha_instalacion_accesorio = dataAccesorio['fecha_instalacion_accesorio'],
                     fecha_garantia_accesorio = dataAccesorio['fecha_garantia_accesorio'],
-                    registro_fotografico_accesorio = dataAccesorio['registro_fotografico_accesorio'].read(),
-                    foto_requisicion_accesorio = dataAccesorio['foto_requisicion_accesorio'].read(),
-                    foto_acta_salida_accesorio = dataAccesorio['foto_acta_salida_accesorio'].read(),
-                    foto_acta_recepcion_accesorio = dataAccesorio['foto_acta_recepcion_accesorio'].read(),
-                    foto_factura_accesorio = dataAccesorio['foto_factura_accesorio'].read(),
+                    registro_fotografico_accesorio = files_path + 'registro_fotografico_accesorio.png',
+                    foto_requisicion_accesorio = files_path + 'foto_requisicion_accesorio.png',
+                    foto_acta_salida_accesorio = files_path + 'foto_acta_salida_accesorio.png',
+                    foto_acta_recepcion_accesorio = files_path + 'foto_acta_recepcion_accesorio.png',
+                    foto_factura_accesorio = files_path + 'foto_factura_accesorio.png',
                 )
                 accesorio.save()
             return Response ({'mensaje': 'Se creo el accesorio'})
