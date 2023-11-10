@@ -35,25 +35,25 @@ class AppMantenimientos_API_CrearMantenimiento(APIView):
 
             if serializer.is_valid():
                 dataMantenimiento = request.data
-                dataActividad = request.data
-                actividad = Actividades(
-                    nombre_actividad = dataActividad['nombre_actividad'],
-                    descripcion_actividad = dataActividad['descripcion_actividad'],
-                    tipo_actividad = dataActividad['tipo_actividad']
-                )
-                actividad.save()
+                actividades = Actividades.objects.get(id = dataMantenimiento['actividad'])
+                computador = Computador.objects.get(id = dataMantenimiento['computador'])
+                tecnico_mantenimiento = Persona.objects.get(id = dataMantenimiento['tecnico_mantenimiento'])
                 mantenimiento = Mantenimiento(
-                    computador = dataMantenimiento['computador'],
+                    computador = computador,
                     tipo_mantenimiento = dataMantenimiento['tipo_mantenimiento'],
                     fecha_mantenimiento = dataMantenimiento['fecha_mantenimiento'],
                     observaciones = dataMantenimiento['observaciones'],
-                    tecnico_mantenimiento = dataMantenimiento['tecnico_mantenimiento'],
-                    actividad = actividad,
+                    tecnico_mantenimiento = tecnico_mantenimiento,
+                    #actividad = actividad,
                     cumple = dataMantenimiento['cumple'],
                     no_cumple = dataMantenimiento['no_cumple'],
                     no_aplica = dataMantenimiento['no_aplica'],
                 )
                 mantenimiento.save()
+                mantenimiento.actividad.add(actividades)
+                
+                
+                
             return Response({'mensaje': 'Se creo el mantenimiento :)'})
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
