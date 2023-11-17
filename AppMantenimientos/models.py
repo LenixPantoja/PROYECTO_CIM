@@ -1,9 +1,10 @@
+""" Librerias """
 from django.db import models
 from AppComputadoras.models import Computador
 from AppUsuarios.models import Persona
-# Create your models here.
 
 
+# Definir el modelo "Actividades" para las actividades de mantenimiento
 class Actividades(models.Model):
     nombre_actividad = models.TextField()
     descripcion_actividad = models.TextField()
@@ -11,6 +12,7 @@ class Actividades(models.Model):
     fecha_creacion_actividad = models.DateTimeField(auto_now=True)
     fecha_modificacion_actividad = models.DateTimeField(auto_now=True)
 
+# Definir el modelo "Mantenimiento" para el registro de mantenimientos
 class Mantenimiento(models.Model):
     computador = models.ForeignKey(Computador, on_delete=models.CASCADE)
     tipo_mantenimiento = models.CharField(max_length=100)
@@ -28,7 +30,9 @@ class Mantenimiento(models.Model):
         verbose_name = 'Mantenimiento'
         verbose_name_plural = 'Mantenimientos'
 
+
     def __str__(self):
-          return str("CODIGO_INTERNO_TORRE: " + self.computador.torre.codigo_interno_torre + " | " + self.computador.responsable.nombres_completos)
+        # Representación en cadena para el objeto Mantenimiento
+        return str("CODIGO_INTERNO_TORRE: " + self.computador.torre.codigo_interno_torre + " | " + self.computador.responsable.nombres_completos)
 
 

@@ -1,6 +1,7 @@
+""" Librerias """
 from django.db import models
-# Create your models here.
 
+# Definir el modelo Responsable con sus respectivos campos
 class Responsable(models.Model):
     nombres_completos = models.CharField(max_length=255)
     numero_documento = models.CharField(max_length=50)
