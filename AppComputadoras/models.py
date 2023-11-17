@@ -1,6 +1,8 @@
+"""Librerias"""
 from django.db import models
 from AppResponsables.models import Responsable
-# Create your models here.
+
+# Modelo que representa la creacion de Mouse
 
 class Mouse(models.Model):
     marca_mouse = models.CharField(max_length=100)
@@ -25,7 +27,7 @@ class Mouse(models.Model):
     def __str__(self):
           return str(self.serial_mouse)
           
-
+# Modelo que representa la creacion del Teclado
 class Teclado(models.Model):
     marca_teclado = models.CharField(max_length=100)
     modelo_teclado = models.CharField(max_length=100)
@@ -47,7 +49,8 @@ class Teclado(models.Model):
 
     def __str__(self):
           return str(self.serial_teclado)
-    
+
+# Modelo que representa la creacion del Monitor    
 class Monitor(models.Model):
     codigo_interno_monitor = models.CharField(max_length=50)
     marca_monitor = models.CharField(max_length=100)
@@ -71,6 +74,8 @@ class Monitor(models.Model):
 
     def __str__(self):
           return str(self.serial_monitor)
+
+# Modelo que representa la creacion de la Torre
 
 class Torre(models.Model):
     codigo_interno_torre = models.CharField(max_length=50)
@@ -99,7 +104,8 @@ class Torre(models.Model):
 
     def __str__(self):
           return str(self.serial_torre)
-   
+# Modelo que representa una ciudad
+#    
 class Ciudad(models.Model):
     nombre_ciudad = models.CharField(max_length=200)
 
@@ -109,7 +115,7 @@ class Ciudad(models.Model):
 
     def __str__(self):
           return str(self.nombre_ciudad)
-
+# Modelo que represemta la creacion de una sede
 class Sede(models.Model):
     nombre_sede = models.CharField(max_length=100)
     ciudad = models.ManyToManyField(Ciudad, verbose_name="Ciudades")
@@ -119,7 +125,7 @@ class Sede(models.Model):
 
     def __str__(self):
           return str(self.nombre_sede)
-
+# Modelo que representa la creacion de una area
 class Area(models.Model):
     nombre_area = models.CharField(max_length=200)
     sedes = models.ManyToManyField(Sede, related_name='areas')
@@ -132,6 +138,7 @@ class Area(models.Model):
 
     def __str__(self):
           return str(self.nombre_area)
+# Modelo que representa la creacion del workstation
 
 class Workstation(models.Model):
     puesto_trabajo = models.CharField(max_length=200)
@@ -144,6 +151,7 @@ class Workstation(models.Model):
 
     def __str__(self):
           return str(self.puesto_trabajo)
+# Modelo que representa la creacion de un computador
     
 class Computador(models.Model):
     area = models.ForeignKey(Area, verbose_name="Area", on_delete=models.CASCADE)
@@ -160,6 +168,7 @@ class Computador(models.Model):
 
     def __str__(self):
           return str(self.torre)
+# Modelo que representa la creacion de una impresora
     
 class Impresoras(models.Model):
     computador = models.ForeignKey(Computador, verbose_name="Computador", on_delete=models.CASCADE)
@@ -185,7 +194,7 @@ class Impresoras(models.Model):
 
     def __str__(self):
           return str(self.serial_impresora)
-
+# Modelo que representa la creacion de un accesorio
 class Accesorios(models.Model):
     computador = models.ForeignKey(Computador, verbose_name="Computador", on_delete=models.CASCADE)
     codigo_interno_accesorio = models.CharField(max_length=50)

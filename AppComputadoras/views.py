@@ -13,22 +13,31 @@ from AppComputadoras.models import *
 from django.core.files.storage import default_storage
 from pathlib import *
 
-
+"""
+class Mouse()
+    mouse = class(objects)
+    Se crea API AppComputers_API_CrearMouse con los atributos del objeto Mouse
+    @process files
+    Toma la dataMouse para crear una ruta en donde se guardara los files, y se lo distingue por el serial del mouse
+"""
 class AppComputers_API_CrearMouse(APIView):
     def post(self, request, format = None):
 
         try:
-
+            # Crear un objeto MouseSerializers con los datos de entrada
             serializer = MouseSerializers(data = request.data)
 
             if serializer.is_valid():
                 dataMouse = request.data
+                # Se crea una ruta de archivo para los archivos de imagen que se guardaran con el serial del mouse
                 files_path = 'mouses/' + dataMouse['serial_mouse'] + '/'
+                # Guardar las imagenes en el almacenamiento predeterminado 'mouses/'
                 default_storage.save(files_path + f'{dataMouse['serial_mouse']}_registro_fotografico_mouse.png', dataMouse['registro_fotografico_mouse'])
                 default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_requisicion_mouse.png', dataMouse['foto_requisicion_mouse'])
                 default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_acta_salida.png', dataMouse['foto_acta_salida'])
                 default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_acta_recepcion.png', dataMouse['foto_acta_recepcion'])
                 default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_factura.png', dataMouse['foto_factura'])
+                # Crea un objeto Mouse con los datos de entrada y lo guarda en la base de datos
                 mouse = Mouse(
                     marca_mouse = dataMouse['marca_mouse'],
                     modelo_mouse = dataMouse['modelo_mouse'],
@@ -50,16 +59,20 @@ class AppComputers_API_CrearMouse(APIView):
 class AppComputers_API_CrearTeclado(APIView):
     def post(self, request, format = None):
         try:
+            # Crea un objeto TecladoSerializer con los datos de entrada
             serializer = TecladoSerializers(data = request.data)
 
             if serializer.is_valid():
                 dataTeclado = request.data
+                # Se crea una ruta de archivo para los archivos de imagen que se guardaran con el serial del teclado
                 files_path = 'teclados/' + dataTeclado['serial_teclado'] + '/'
+                # Guardar las imagenes en el almacenamiento predeterminado 'teclados/'
                 default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_registro_fotografico_teclado.png', dataTeclado['registro_fotografico_teclado'])
                 default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_requisicion_teclado.png', dataTeclado['foto_requisicion_teclado'])
                 default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_acta_salida_teclado.png', dataTeclado['foto_acta_salida_teclado'])
                 default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_acta_recepcion_teclado.png', dataTeclado['foto_acta_recepcion_teclado'])
                 default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_factura_teclado.png', dataTeclado['foto_factura_teclado'])
+                # Crea un objeto Teclado con los datos de entrada y lo guarda en la base de datos
                 teclado = Teclado(
                     marca_teclado = dataTeclado['marca_teclado'],
                     modelo_teclado = dataTeclado['modelo_teclado'],
@@ -81,16 +94,20 @@ class AppComputers_API_CrearTeclado(APIView):
 class AppComputers_API_CrearMonitor(APIView):
     def post(self, request, format = None):
         try:
+            # Crea un objeto MonitorSerializer con los datos de entrada
             serializer = MonitorSerializers(data = request.data)
 
             if serializer.is_valid():
                 dataMonitor = request.data
+                # Se crea una ruta de archivo para los archivos de imagen que se guardaran con el serial del monitor
                 files_path = 'monitores/' + dataMonitor['serial_monitor'] + '/'
+                # Guardar las imagenes en el almacenamiento predeterminado 'monitores/'
                 default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_registro_fotografico_monitor.png', dataMonitor['registro_fotografico_monitor'])
                 default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_requisicion_monitor.png', dataMonitor['foto_requisicion_monitor'])
                 default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_acta_salida_monitor.png', dataMonitor['foto_acta_salida_monitor'])
                 default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_acta_recepcion_monitor.png', dataMonitor['foto_acta_recepcion_monitor'])
                 default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_factura_monitor.png', dataMonitor['foto_factura_monitor'])
+                # Crea un objeto Monitor con los datos de entrada y lo guarda en la base de datos
                 monitor = Monitor(
                     codigo_interno_monitor = dataMonitor['codigo_interno_monitor'],
                     marca_monitor = dataMonitor['marca_monitor'],
@@ -114,16 +131,20 @@ class AppComputers_API_CrearMonitor(APIView):
 class AppComputers_API_CrearTorre(APIView):
     def post(self, request, format =  None):
         try:
+            # Crea un objeto TorreSerializers con los datos de entrada
             serializer = TorreSerializers(data = request.data)
 
             if serializer.is_valid():
                 dataTorre = request.data
-                files_path = 'monitores/' + dataTorre['serial_torre'] + '/'
+                # Se crea una ruta de archivo para los archivos de imagen que se guardaran con el serial de la torre
+                files_path = 'torres/' + dataTorre['serial_torre'] + '/'
+                # Guardar las imagenes en el almacenamiento predeterminado 'torres/'
                 default_storage.save(files_path + f'{dataTorre['serial_torre']}_registro_fotografico_torre.png', dataTorre['registro_fotografico_torre'])
                 default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_requisicion_torre.png', dataTorre['foto_requisicion_torre'])
                 default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_acta_salida_torre.png', dataTorre['foto_acta_salida_torre'])
                 default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_acta_recepcion_torre.png', dataTorre['foto_acta_recepcion_torre'])
                 default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_factura_torre.png', dataTorre['foto_factura_torre'])
+                # Crea un objeto Torre con los datos de entrada y lo guarda en la base de datos
                 torre = Torre(
                     codigo_interno_torre = dataTorre['codigo_interno_torre'],
                     dominio_torre = dataTorre['dominio_torre'],
@@ -151,15 +172,18 @@ class AppComputers_API_CrearTorre(APIView):
 class AppComputers_API_CiudadSede(APIView):
     def post(self, request, format = None):
         try:
+            # Crea dos objetos CiudadSerializers, SedeSerializers con los datos de entrada
             serializerCiudad = CiudadSerializers(data = request.data)
             serializerSede = SedeSerializers(data = request.data)
 
             if serializerCiudad.is_valid() and serializerSede.is_valid():
                 dataCiudad = request.data
                 dataSede = request.data
+                # Crea una ciudad con los datos de entrada y los guarda en la base de datos
                 ciudad = Ciudad(
                     nombre_ciudad = dataCiudad['nombre_ciudad']
                 )
+                # Crea una sede con los datos de entrada y los guarda en la base de datos
                 sede = Sede(
                     nombre_sede = dataSede['nombre_sede'],
                     ciudad = ciudad
@@ -173,10 +197,12 @@ class AppComputers_API_CiudadSede(APIView):
 class AppComputers_API_CrearArea(APIView):
     def post(self, request, format =  None):
         try:
+            # Crea un objeto AreaSerializers con los datos de entrada
             serializer = AreaSerializers(data = request.data)
 
             if serializer.is_valid():
                 dataArea = request.data
+                # Crea un objeto Area con los datos entrada y los guarda en la base de datos
                 area = Area(
                     nombre_area = dataArea['nombre_area'],
                     sedes = dataArea['sedes']
@@ -189,10 +215,12 @@ class AppComputers_API_CrearArea(APIView):
 class AppComputers_API_CrearWorkstation(APIView):
     def post(self, request, format = None):
         try:
+            # Crea un objeto WorkstationSerializers con los datos de entrada
             serializer = WorkstationSerializers(data = request.data)
 
             if serializer.is_valid():
                 dataWorkstation = request.data
+                # Crea un objeto Workstation con los datos de entrada
                 workstation = Workstation(
                     puesto_trabajo = dataWorkstation['puesto_trabajo']
                 )
