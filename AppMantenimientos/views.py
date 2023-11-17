@@ -6,7 +6,7 @@ from rest_framework import status
 from django.http import Http404
 from rest_framework import generics
 from django.http import JsonResponse
-# Create your views here.
+
 """ Modelos """
 from AppMantenimientos.serializers import *
 from AppMantenimientos.models import *
