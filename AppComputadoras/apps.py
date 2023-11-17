@@ -1,3 +1,4 @@
+""" Librerias """
 from django.apps import AppConfig
 
 # Clase de configuración de la aplicación AppComputadoras
