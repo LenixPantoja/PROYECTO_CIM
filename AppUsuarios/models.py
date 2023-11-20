@@ -1,7 +1,8 @@
+""" Librerias """
 from django.db import models
 from django.contrib.auth.models import User
-# Create your models here.
 
+# Definición del modelo Rol con sus campos
 class Rol(models.Model):
     nombre_rol = models.CharField(max_length=200)
     fecha_creacion_rol = models.DateTimeField(auto_now=True)
@@ -14,6 +15,7 @@ class Rol(models.Model):
     def __str__(self):
           return str(self.nombre_rol)
     
+# Definición del modelo Persona con sus campos
 class Persona(models.Model):
     user = models.OneToOneField(User, verbose_name="UsuarioCIM", on_delete=models.CASCADE)
     rol = models.OneToOneField(Rol, verbose_name="Rol", on_delete=models.CASCADE) 

@@ -141,9 +141,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# Ruta para almacenar las imagenes de mouse
+# Ruta para almacenar las imagenes
 
-MEDIA_URL = '/ARCHIVOS/'
+MEDIA_URL = '/ARTICULOS/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type

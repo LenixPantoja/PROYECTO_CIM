@@ -1,7 +1,8 @@
+"""Librerias"""
 from django.db import models
 from AppResponsables.models import Responsable
-# Create your models here.
 
+# Modelo que representa la creacion de Mouse
 class Mouse(models.Model):
     marca_mouse = models.CharField(max_length=100)
     modelo_mouse = models.CharField(max_length=100)
@@ -9,13 +10,14 @@ class Mouse(models.Model):
     fecha_adquisicion_mouse = models.DateField()
     fecha_instalacion_mouse = models.DateField()
     fecha_garantia_mouse = models.DateField()
-    registro_fotografico_mouse = models.BinaryField(blank=True, null=True)
-    foto_requisicion_mouse = models.BinaryField(blank=True, null=True)
-    foto_acta_salida = models.BinaryField(blank=True, null=True)
-    foto_acta_recepcion = models.BinaryField(blank=True, null=True)
-    foto_factura = models.BinaryField(blank=True, null=True)
+    registro_fotografico_mouse = models.ImageField(blank=True, null=True)
+    foto_requisicion_mouse = models.ImageField(blank=True, null=True)
+    foto_acta_salida = models.ImageField(blank=True, null=True)
+    foto_acta_recepcion = models.ImageField(blank=True, null=True)
+    foto_factura = models.ImageField(blank=True, null=True)
     fecha_creacion_mouse = models.DateTimeField(auto_now=True)
     fecha_modificacion_mouse = models.DateTimeField(auto_now=True) 
+
 
     class Meta:
         verbose_name = 'Mouse'
@@ -23,7 +25,8 @@ class Mouse(models.Model):
 
     def __str__(self):
           return str(self.serial_mouse)
-
+          
+# Modelo que representa la creacion del Teclado
 class Teclado(models.Model):
     marca_teclado = models.CharField(max_length=100)
     modelo_teclado = models.CharField(max_length=100)
@@ -31,11 +34,11 @@ class Teclado(models.Model):
     fecha_adquisicion_teclado = models.DateField()
     fecha_instalacion_teclado = models.DateField()
     fecha_garantia_teclado = models.DateField()
-    registro_fotografico_teclado = models.BinaryField(blank=True, null=True)
-    foto_requisicion_teclado = models.BinaryField(blank=True, null=True)
-    foto_acta_salida_teclado = models.BinaryField(blank=True, null=True)
-    foto_acta_recepcion_teclado = models.BinaryField(blank=True, null=True)
-    foto_factura_teclado = models.BinaryField(blank=True, null=True)
+    registro_fotografico_teclado = models.ImageField(blank=True, null=True)
+    foto_requisicion_teclado = models.ImageField(blank=True, null=True)
+    foto_acta_salida_teclado = models.ImageField(blank=True, null=True)
+    foto_acta_recepcion_teclado = models.ImageField(blank=True, null=True)
+    foto_factura_teclado = models.ImageField(blank=True, null=True)
     fecha_creacion_teclado = models.DateTimeField(auto_now=True)
     fecha_modificacion_teclado = models.DateTimeField(auto_now=True)
 
@@ -45,7 +48,8 @@ class Teclado(models.Model):
 
     def __str__(self):
           return str(self.serial_teclado)
-    
+
+# Modelo que representa la creacion del Monitor    
 class Monitor(models.Model):
     codigo_interno_monitor = models.CharField(max_length=50)
     marca_monitor = models.CharField(max_length=100)
@@ -55,11 +59,11 @@ class Monitor(models.Model):
     fecha_adquisicion_monitor = models.DateField()
     fecha_instalacion_monitor = models.DateField()
     fecha_garantia_monitor = models.DateField()
-    registro_fotografico_monitor = models.BinaryField(blank=True, null=True)
-    foto_requisicion_monitor = models.BinaryField(blank=True, null=True)
-    foto_acta_salida_monitor = models.BinaryField(blank=True, null=True)
-    foto_acta_recepcion_monitor = models.BinaryField(blank=True, null=True)
-    foto_factura_monitor = models.BinaryField(blank=True, null=True)
+    registro_fotografico_monitor = models.ImageField(blank=True, null=True)
+    foto_requisicion_monitor = models.ImageField(blank=True, null=True)
+    foto_acta_salida_monitor = models.ImageField(blank=True, null=True)
+    foto_acta_recepcion_monitor = models.ImageField(blank=True, null=True)
+    foto_factura_monitor = models.ImageField(blank=True, null=True)
     fecha_creacion_monitor = models.DateTimeField(auto_now=True)
     fecha_modificacion_monitor = models.DateTimeField(auto_now=True)
 
@@ -70,6 +74,7 @@ class Monitor(models.Model):
     def __str__(self):
           return str(self.serial_monitor)
 
+# Modelo que representa la creacion de la Torre
 class Torre(models.Model):
     codigo_interno_torre = models.CharField(max_length=50)
     dominio_torre = models.CharField(max_length=200)
@@ -83,11 +88,11 @@ class Torre(models.Model):
     fecha_adquisicion_torre = models.DateField()
     fecha_instalacion_torre = models.DateField()
     fecha_garantia_torre = models.DateField()
-    registro_fotografico_torre = models.BinaryField(blank=True, null=True)
-    foto_requisicion_torre = models.BinaryField(blank=True, null=True)
-    foto_acta_salida_torre = models.BinaryField(blank=True, null=True)
-    foto_acta_recepcion_torre = models.BinaryField(blank=True, null=True)
-    foto_factura_torre = models.BinaryField(blank=True, null=True)
+    registro_fotografico_torre = models.ImageField(blank=True, null=True)
+    foto_requisicion_torre = models.ImageField(blank=True, null=True)
+    foto_acta_salida_torre = models.ImageField(blank=True, null=True)
+    foto_acta_recepcion_torre = models.ImageField(blank=True, null=True)
+    foto_factura_torre = models.ImageField(blank=True, null=True)
     fecha_creacion_torre = models.DateTimeField(auto_now=True)
     fecha_modificacion_torre = models.DateTimeField(auto_now=True)
 
@@ -97,7 +102,8 @@ class Torre(models.Model):
 
     def __str__(self):
           return str(self.serial_torre)
-   
+    
+# Modelo que representa una ciudad
 class Ciudad(models.Model):
     nombre_ciudad = models.CharField(max_length=200)
 
@@ -107,7 +113,8 @@ class Ciudad(models.Model):
 
     def __str__(self):
           return str(self.nombre_ciudad)
-
+    
+# Modelo que represemta la creacion de una sede
 class Sede(models.Model):
     nombre_sede = models.CharField(max_length=100)
     ciudad = models.ManyToManyField(Ciudad, verbose_name="Ciudades")
@@ -117,7 +124,8 @@ class Sede(models.Model):
 
     def __str__(self):
           return str(self.nombre_sede)
-
+    
+# Modelo que representa la creacion de una area
 class Area(models.Model):
     nombre_area = models.CharField(max_length=200)
     sedes = models.ManyToManyField(Sede, related_name='areas')
@@ -130,7 +138,8 @@ class Area(models.Model):
 
     def __str__(self):
           return str(self.nombre_area)
-
+    
+# Modelo que representa la creacion del workstation
 class Workstation(models.Model):
     puesto_trabajo = models.CharField(max_length=200)
     fecha_creacion_workstation = models.DateTimeField(auto_now=True)
@@ -143,6 +152,7 @@ class Workstation(models.Model):
     def __str__(self):
           return str(self.puesto_trabajo)
     
+# Modelo que representa la creacion de un computador    
 class Computador(models.Model):
     area = models.ForeignKey(Area, verbose_name="Area", on_delete=models.CASCADE)
     workstation = models.ForeignKey(Workstation, verbose_name= "Workstation", on_delete=models.CASCADE)
@@ -157,9 +167,9 @@ class Computador(models.Model):
         verbose_name_plural = 'Computadores'
 
     def __str__(self):
-          return str(self.torre
-                     )
+          return str(self.torre)
     
+# Modelo que representa la creacion de una impresora  
 class Impresoras(models.Model):
     computador = models.ForeignKey(Computador, verbose_name="Computador", on_delete=models.CASCADE)
     codigo_interno_impresora = models.CharField(max_length=50)
@@ -170,11 +180,11 @@ class Impresoras(models.Model):
     fecha_adquisicion_impresora = models.DateField()
     fecha_instalacion_impresora = models.DateField()
     fecha_garantia_impresora = models.DateField()
-    registro_fotografico_impresora = models.BinaryField(blank=True, null=True)
-    foto_requisicion_impresora = models.BinaryField(blank=True, null=True)
-    foto_acta_salida_impresora = models.BinaryField(blank=True, null=True)
-    foto_acta_recepcion_impresora = models.BinaryField(blank=True, null=True)
-    foto_factura_impresora = models.BinaryField(blank=True, null=True)
+    registro_fotografico_impresora = models.ImageField(blank=True, null=True)
+    foto_requisicion_impresora = models.ImageField(blank=True, null=True)
+    foto_acta_salida_impresora = models.ImageField(blank=True, null=True)
+    foto_acta_recepcion_impresora = models.ImageField(blank=True, null=True)
+    foto_factura_impresora = models.ImageField(blank=True, null=True)
     fecha_creacion_impresora = models.DateTimeField(auto_now=True)
     fecha_modificacion_impresora = models.DateTimeField(auto_now=True)
 
@@ -184,7 +194,8 @@ class Impresoras(models.Model):
 
     def __str__(self):
           return str(self.serial_impresora)
-
+    
+# Modelo que representa la creacion de un accesorio
 class Accesorios(models.Model):
     computador = models.ForeignKey(Computador, verbose_name="Computador", on_delete=models.CASCADE)
     codigo_interno_accesorio = models.CharField(max_length=50)
@@ -196,11 +207,11 @@ class Accesorios(models.Model):
     fecha_adquisicion_accesorio = models.DateField()
     fecha_instalacion_accesorio = models.DateField()
     fecha_garantia_accesorio = models.DateField()
-    registro_fotografico_accesorio = models.BinaryField(blank=True, null=True)
-    foto_requisicion_accesorio = models.BinaryField(blank=True, null=True)
-    foto_acta_salida_accesorio = models.BinaryField(blank=True, null=True)
-    foto_acta_recepcion_accesorio = models.BinaryField(blank=True, null=True)
-    foto_factura_accesorio = models.BinaryField(blank=True, null=True)
+    registro_fotografico_accesorio = models.ImageField(blank=True, null=True)
+    foto_requisicion_accesorio = models.ImageField(blank=True, null=True)
+    foto_acta_salida_accesorio = models.ImageField(blank=True, null=True)
+    foto_acta_recepcion_accesorio = models.ImageField(blank=True, null=True)
+    foto_factura_accesorio = models.ImageField(blank=True, null=True)
     fecha_creacion_accesorio = models.DateTimeField(auto_now=True)
     fecha_modificacion_accesorio = models.DateTimeField(auto_now=True)
 
