@@ -360,7 +360,7 @@ class AppComputers_API_CrearComputador(APIView):
 class AppComputers_API_CrearImpresora(APIView):
     def post(self, request, format = None):
         try:
-            # Crea un objeto ImpresorasSerializers con los datos de entrada
+            # Crea un objeto ImpresorasSerializers con los datos de entrada.
             serializer = ImpresorasSerializers(data = request.data)
 
             if serializer.is_valid():
