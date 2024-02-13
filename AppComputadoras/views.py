@@ -33,11 +33,11 @@ class AppComputers_API_CrearMouse(APIView):
                 # Se crea una ruta de archivo para los archivos de imagen que se guardaran con el serial del mouse
                 files_path = 'mouses/' + dataMouse['serial_mouse'] + '/'
                 # Guardar las imagenes en el almacenamiento predeterminado 'mouses/'
-                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_registro_fotografico_mouse.png', dataMouse['registro_fotografico_mouse'])
-                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_requisicion_mouse.png', dataMouse['foto_requisicion_mouse'])
-                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_acta_salida.png', dataMouse['foto_acta_salida'])
-                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_acta_recepcion.png', dataMouse['foto_acta_recepcion'])
-                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_factura.png', dataMouse['foto_factura'])
+                default_storage.save(files_path + f'{dataMouse["serial_mouse"]}_registro_fotografico_mouse.png', dataMouse['registro_fotografico_mouse'])
+                default_storage.save(files_path + f'{dataMouse["serial_mouse"]}_foto_requisicion_mouse.png', dataMouse['foto_requisicion_mouse'])
+                default_storage.save(files_path + f'{dataMouse["serial_mouse"]}_foto_acta_salida.png', dataMouse['foto_acta_salida'])
+                default_storage.save(files_path + f'{dataMouse["serial_mouse"]}_foto_acta_recepcion.png', dataMouse['foto_acta_recepcion'])
+                default_storage.save(files_path + f'{dataMouse["serial_mouse"]}_foto_factura.png', dataMouse['foto_factura'])
                 # Crea un objeto Mouse con los datos de entrada y lo guarda en la base de datos
                 mouse = Mouse(
                     marca_mouse = dataMouse['marca_mouse'],
@@ -50,7 +50,7 @@ class AppComputers_API_CrearMouse(APIView):
                     foto_requisicion_mouse = files_path + 'foto_requisicion_mouse.png',
                     foto_acta_salida = files_path + 'foto_acta_salida.png',
                     foto_acta_recepcion = files_path + 'foto_acta_recepcion.png',
-                    foto_factura = files_path + 'foto_factura.png'
+                    foto_factura = files_path + 'foto_factura.png',
                 )
                 mouse.save()
                 return Response({'mensaje': 'Se creo el mouse :)'})
@@ -68,11 +68,11 @@ class AppComputers_API_CrearTeclado(APIView):
                 # Se crea una ruta de archivo para los archivos de imagen que se guardaran con el serial del teclado
                 files_path = 'teclados/' + dataTeclado['serial_teclado'] + '/'
                 # Guardar las imagenes en el almacenamiento predeterminado 'teclados/'
-                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_registro_fotografico_teclado.png', dataTeclado['registro_fotografico_teclado'])
-                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_requisicion_teclado.png', dataTeclado['foto_requisicion_teclado'])
-                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_acta_salida_teclado.png', dataTeclado['foto_acta_salida_teclado'])
-                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_acta_recepcion_teclado.png', dataTeclado['foto_acta_recepcion_teclado'])
-                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_factura_teclado.png', dataTeclado['foto_factura_teclado'])
+                default_storage.save(files_path + f'{dataTeclado["serial_teclado"]}_registro_fotografico_teclado.png', dataTeclado['registro_fotografico_teclado'])
+                default_storage.save(files_path + f'{dataTeclado["serial_teclado"]}_foto_requisicion_teclado.png', dataTeclado['foto_requisicion_teclado'])
+                default_storage.save(files_path + f'{dataTeclado["serial_teclado"]}_foto_acta_salida_teclado.png', dataTeclado['foto_acta_salida_teclado'])
+                default_storage.save(files_path + f'{dataTeclado["serial_teclado"]}_foto_acta_recepcion_teclado.png', dataTeclado['foto_acta_recepcion_teclado'])
+                default_storage.save(files_path + f'{dataTeclado["serial_teclado"]}_foto_factura_teclado.png', dataTeclado['foto_factura_teclado'])
                 # Crea un objeto Teclado con los datos de entrada y lo guarda en la base de datos
                 teclado = Teclado(
                     marca_teclado = dataTeclado['marca_teclado'],
@@ -103,11 +103,11 @@ class AppComputers_API_CrearMonitor(APIView):
                 # Se crea una ruta de archivo para los archivos de imagen que se guardaran con el serial del monitor
                 files_path = 'monitores/' + dataMonitor['serial_monitor'] + '/'
                 # Guardar las imagenes en el almacenamiento predeterminado 'monitores/'
-                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_registro_fotografico_monitor.png', dataMonitor['registro_fotografico_monitor'])
-                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_requisicion_monitor.png', dataMonitor['foto_requisicion_monitor'])
-                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_acta_salida_monitor.png', dataMonitor['foto_acta_salida_monitor'])
-                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_acta_recepcion_monitor.png', dataMonitor['foto_acta_recepcion_monitor'])
-                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_factura_monitor.png', dataMonitor['foto_factura_monitor'])
+                default_storage.save(files_path + f'{dataMonitor["serial_monitor"]}_registro_fotografico_monitor.png', dataMonitor['registro_fotografico_monitor'])
+                default_storage.save(files_path + f'{dataMonitor["serial_monitor"]}_foto_requisicion_monitor.png', dataMonitor['foto_requisicion_monitor'])
+                default_storage.save(files_path + f'{dataMonitor["serial_monitor"]}_foto_acta_salida_monitor.png', dataMonitor['foto_acta_salida_monitor'])
+                default_storage.save(files_path + f'{dataMonitor["serial_monitor"]}_foto_acta_recepcion_monitor.png', dataMonitor['foto_acta_recepcion_monitor'])
+                default_storage.save(files_path + f'{dataMonitor["serial_monitor"]}_foto_factura_monitor.png', dataMonitor['foto_factura_monitor'])
                 # Crea un objeto Monitor con los datos de entrada y lo guarda en la base de datos
                 monitor = Monitor(
                     codigo_interno_monitor = dataMonitor['codigo_interno_monitor'],
@@ -140,11 +140,11 @@ class AppComputers_API_CrearTorre(APIView):
                 # Se crea una ruta de archivo para los archivos de imagen que se guardaran con el serial de la torre
                 files_path = 'torres/' + dataTorre['serial_torre'] + '/'
                 # Guardar las imagenes en el almacenamiento predeterminado 'torres/'
-                default_storage.save(files_path + f'{dataTorre['serial_torre']}_registro_fotografico_torre.png', dataTorre['registro_fotografico_torre'])
-                default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_requisicion_torre.png', dataTorre['foto_requisicion_torre'])
-                default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_acta_salida_torre.png', dataTorre['foto_acta_salida_torre'])
-                default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_acta_recepcion_torre.png', dataTorre['foto_acta_recepcion_torre'])
-                default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_factura_torre.png', dataTorre['foto_factura_torre'])
+                default_storage.save(files_path + f'{dataTorre["serial_torre"]}_registro_fotografico_torre.png', dataTorre['registro_fotografico_torre'])
+                default_storage.save(files_path + f'{dataTorre["serial_torre"]}_foto_requisicion_torre.png', dataTorre['foto_requisicion_torre'])
+                default_storage.save(files_path + f'{dataTorre["serial_torre"]}_foto_acta_salida_torre.png', dataTorre['foto_acta_salida_torre'])
+                default_storage.save(files_path + f'{dataTorre["serial_torre"]}_foto_acta_recepcion_torre.png', dataTorre['foto_acta_recepcion_torre'])
+                default_storage.save(files_path + f'{dataTorre["serial_torre"]}_foto_factura_torre.png', dataTorre['foto_factura_torre'])
                 # Crea un objeto Torre con los datos de entrada y lo guarda en la base de datos
                 torre = Torre(
                     codigo_interno_torre = dataTorre['codigo_interno_torre'],
@@ -242,11 +242,11 @@ class AppComputers_API_CrearComputador(APIView):
                 # Se crea una ruta de archivo para los archivos de imagen que se guardaran con el serial de la monitor
                 files_path = 'monitores/' + dataMonitor['serial_monitor'] + '/'
                 # Guardar las imagenes en el almacenamiento predeterminado 'monitores/'
-                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_registro_fotografico_monitor.png', dataMonitor['registro_fotografico_monitor'])
-                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_requisicion_monitor.png', dataMonitor['foto_requisicion_monitor'])
-                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_acta_salida_monitor.png', dataMonitor['foto_acta_salida_monitor'])
-                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_acta_recepcion_monitor.png', dataMonitor['foto_acta_recepcion_monitor'])
-                default_storage.save(files_path + f'{dataMonitor['serial_monitor']}_foto_factura_monitor.png', dataMonitor['foto_factura_monitor'])
+                default_storage.save(files_path + f'{dataMonitor["serial_monitor"]}_registro_fotografico_monitor.png', dataMonitor['registro_fotografico_monitor'])
+                default_storage.save(files_path + f'{dataMonitor["serial_monitor"]}_foto_requisicion_monitor.png', dataMonitor['foto_requisicion_monitor'])
+                default_storage.save(files_path + f'{dataMonitor["serial_monitor"]}_foto_acta_salida_monitor.png', dataMonitor['foto_acta_salida_monitor'])
+                default_storage.save(files_path + f'{dataMonitor["serial_monitor"]}_foto_acta_recepcion_monitor.png', dataMonitor['foto_acta_recepcion_monitor'])
+                default_storage.save(files_path + f'{dataMonitor["serial_monitor"]}_foto_factura_monitor.png', dataMonitor['foto_factura_monitor'])
                 # Crea un objeto Monitor con los datos de entrada y lo guarda en la base de datos
                 monitor = Monitor(
                     codigo_interno_monitor = dataMonitor['codigo_interno_monitor'],
@@ -268,11 +268,11 @@ class AppComputers_API_CrearComputador(APIView):
                 # Se crea una ruta de archivo para los archivos de imagen que se guardaran con el serial del teclado
                 files_path = 'teclados/' + dataTeclado['serial_teclado'] + '/'
                 # Guardar las imagenes en el almacenamiento predeterminado 'monitores/'
-                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_registro_fotografico_teclado.png', dataTeclado['registro_fotografico_teclado'])
-                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_requisicion_teclado.png', dataTeclado['foto_requisicion_teclado'])
-                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_acta_salida_teclado.png', dataTeclado['foto_acta_salida_teclado'])
-                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_acta_recepcion_teclado.png', dataTeclado['foto_acta_recepcion_teclado'])
-                default_storage.save(files_path + f'{dataTeclado['serial_teclado']}_foto_factura_teclado.png', dataTeclado['foto_factura_teclado'])
+                default_storage.save(files_path + f'{dataTeclado["serial_teclado"]}_registro_fotografico_teclado.png', dataTeclado['registro_fotografico_teclado'])
+                default_storage.save(files_path + f'{dataTeclado["serial_teclado"]}_foto_requisicion_teclado.png', dataTeclado['foto_requisicion_teclado'])
+                default_storage.save(files_path + f'{dataTeclado["serial_teclado"]}_foto_acta_salida_teclado.png', dataTeclado['foto_acta_salida_teclado'])
+                default_storage.save(files_path + f'{dataTeclado["serial_teclado"]}_foto_acta_recepcion_teclado.png', dataTeclado['foto_acta_recepcion_teclado'])
+                default_storage.save(files_path + f'{dataTeclado["serial_teclado"]}_foto_factura_teclado.png', dataTeclado['foto_factura_teclado'])
                 # Crea un objeto Teclado con los datos de entrada y lo guarda en la base de datos
                 teclado = Teclado(
                     marca_teclado = dataTeclado['marca_teclado'],
@@ -292,11 +292,11 @@ class AppComputers_API_CrearComputador(APIView):
                 # Se crea una ruta de archivo para los archivos de imagen que se guardaran con el serial del mouse
                 files_path = 'mouses/' + dataMouse['serial_mouse'] + '/'
                 # Guardar las imagenes en el almacenamiento predeterminado 'mouses/'
-                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_registro_fotografico_mouse.png', dataMouse['registro_fotografico_mouse'])
-                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_requisicion_mouse.png', dataMouse['foto_requisicion_mouse'])
-                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_acta_salida.png', dataMouse['foto_acta_salida'])
-                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_acta_recepcion.png', dataMouse['foto_acta_recepcion'])
-                default_storage.save(files_path + f'{dataMouse['serial_mouse']}_foto_factura.png', dataMouse['foto_factura'])
+                default_storage.save(files_path + f'{dataMouse["serial_mouse"]}_registro_fotografico_mouse.png', dataMouse['registro_fotografico_mouse'])
+                default_storage.save(files_path + f'{dataMouse["serial_mouse"]}_foto_requisicion_mouse.png', dataMouse['foto_requisicion_mouse'])
+                default_storage.save(files_path + f'{dataMouse["serial_mouse"]}_foto_acta_salida.png', dataMouse['foto_acta_salida'])
+                default_storage.save(files_path + f'{dataMouse["serial_mouse"]}_foto_acta_recepcion.png', dataMouse['foto_acta_recepcion'])
+                default_storage.save(files_path + f'{dataMouse["serial_mouse"]}_foto_factura.png', dataMouse['foto_factura'])
                 # Crea un objeto Mouse con los datos de entrada y lo guarda en la base de datos
                 mouse = Mouse(
                     marca_mouse = dataMouse['marca_mouse'],
@@ -316,11 +316,11 @@ class AppComputers_API_CrearComputador(APIView):
                 # Se crea una ruta de archivo para los archivos de imagen que se guardaran con el serial de la torre
                 files_path = 'torres/' + dataTorre['serial_torre'] + '/'
                 # Guardar las imagenes en el almacenamiento predeterminado 'torres/'
-                default_storage.save(files_path + f'{dataTorre['serial_torre']}_registro_fotografico_torre.png', dataTorre['registro_fotografico_torre'])
-                default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_requisicion_torre.png', dataTorre['foto_requisicion_torre'])
-                default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_acta_salida_torre.png', dataTorre['foto_acta_salida_torre'])
-                default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_acta_recepcion_torre.png', dataTorre['foto_acta_recepcion_torre'])
-                default_storage.save(files_path + f'{dataTorre['serial_torre']}_foto_factura_torre.png', dataTorre['foto_factura_torre'])
+                default_storage.save(files_path + f'{dataTorre["serial_torre"]}_registro_fotografico_torre.png', dataTorre['registro_fotografico_torre'])
+                default_storage.save(files_path + f'{dataTorre["serial_torre"]}_foto_requisicion_torre.png', dataTorre['foto_requisicion_torre'])
+                default_storage.save(files_path + f'{dataTorre["serial_torre"]}_foto_acta_salida_torre.png', dataTorre['foto_acta_salida_torre'])
+                default_storage.save(files_path + f'{dataTorre["serial_torre"]}_foto_acta_recepcion_torre.png', dataTorre['foto_acta_recepcion_torre'])
+                default_storage.save(files_path + f'{dataTorre["serial_torre"]}_foto_factura_torre.png', dataTorre['foto_factura_torre'])
                 # Crea un objeto Torre con los datos de entrada y lo guarda en la base de datos
                 torre = Torre(
                     codigo_interno_torre = dataTorre['codigo_interno_torre'],
@@ -368,11 +368,11 @@ class AppComputers_API_CrearImpresora(APIView):
                 # Se crea una ruta de archivo para los archivos de imagen que se guardaran con el serial de la impresora
                 files_path = 'impresoras/' + dataImpresora['serial_impresora'] + '/'
                 # Guardar las imagenes en el almacenamiento predeterminado 'impresoras/'
-                default_storage.save(files_path + f'{dataImpresora['serial_impresora']}_registro_fotografico_impresora.png', dataImpresora['registro_fotografico_impresora'])
-                default_storage.save(files_path + f'{dataImpresora['serial_impresora']}_foto_requisicion_impresora.png', dataImpresora['foto_requisicion_impresora'])
-                default_storage.save(files_path + f'{dataImpresora['serial_impresora']}_foto_acta_salida_impresora.png', dataImpresora['foto_acta_salida_impresora'])
-                default_storage.save(files_path + f'{dataImpresora['serial_impresora']}_foto_acta_recepcion_impresora.png', dataImpresora['foto_acta_recepcion_impresora'])
-                default_storage.save(files_path + f'{dataImpresora['serial_impresora']}_foto_factura_impresora.png', dataImpresora['foto_factura_impresora'])
+                default_storage.save(files_path + f'{dataImpresora["serial_impresora"]}_registro_fotografico_impresora.png', dataImpresora['registro_fotografico_impresora'])
+                default_storage.save(files_path + f'{dataImpresora["serial_impresora"]}_foto_requisicion_impresora.png', dataImpresora['foto_requisicion_impresora'])
+                default_storage.save(files_path + f'{dataImpresora["serial_impresora"]}_foto_acta_salida_impresora.png', dataImpresora['foto_acta_salida_impresora'])
+                default_storage.save(files_path + f'{dataImpresora["serial_impresora"]}_foto_acta_recepcion_impresora.png', dataImpresora['foto_acta_recepcion_impresora'])
+                default_storage.save(files_path + f'{dataImpresora["serial_impresora"]}_foto_factura_impresora.png', dataImpresora['foto_factura_impresora'])
                 # Crea un objeto Impresoras con los datos de entrada y lo guarda en la base de datos
                 impresora = Impresoras(
                     computador = dataImpresora['computador'],
@@ -406,11 +406,11 @@ class AppComputers_API_CrearAccesorio(APIView):
                 # Se crea una ruta de archivo para los archivos de imagen que se guardaran con el serial del accesorio
                 files_path = 'accesorios/' + dataAccesorio['serial_accesorio'] + '/'
                 # Guardar las imagenes en el almacenamiento predeterminado 'accesorios/'
-                default_storage.save(files_path + f'{dataAccesorio['serial_accesorio']}_registro_fotografico_accesorio.png', dataAccesorio['registro_fotografico_accesorio'])
-                default_storage.save(files_path + f'{dataAccesorio['serial_accesorio']}_foto_requisicion_accesorio.png', dataAccesorio['foto_requisicion_accesorio'])
-                default_storage.save(files_path + f'{dataAccesorio['serial_accesorio']}_foto_acta_salida_accesorio.png', dataAccesorio['foto_acta_salida_accesorio'])
-                default_storage.save(files_path + f'{dataAccesorio['serial_accesorio']}_foto_acta_recepcion_accesorio.png', dataAccesorio['foto_acta_recepcion_accesorio'])
-                default_storage.save(files_path + f'{dataAccesorio['serial_accesorio']}_foto_factura_accesorio.png', dataAccesorio['foto_factura_accesorio'])
+                default_storage.save(files_path + f'{dataAccesorio["serial_accesorio"]}_registro_fotografico_accesorio.png', dataAccesorio['registro_fotografico_accesorio'])
+                default_storage.save(files_path + f'{dataAccesorio["serial_accesorio"]}_foto_requisicion_accesorio.png', dataAccesorio['foto_requisicion_accesorio'])
+                default_storage.save(files_path + f'{dataAccesorio["serial_accesorio"]}_foto_acta_salida_accesorio.png', dataAccesorio['foto_acta_salida_accesorio'])
+                default_storage.save(files_path + f'{dataAccesorio["serial_accesorio"]}_foto_acta_recepcion_accesorio.png', dataAccesorio['foto_acta_recepcion_accesorio'])
+                default_storage.save(files_path + f'{dataAccesorio["serial_accesorio"]}_foto_factura_accesorio.png', dataAccesorio['foto_factura_accesorio'])
                 # Crea un objeto Accesorios con los datos de entrada y lo guarda en la base de datos
                 accesorio = Accesorios(
                     computador = dataAccesorio['computador'],
