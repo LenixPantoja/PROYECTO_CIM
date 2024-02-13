@@ -2,6 +2,7 @@
 from django.urls import path
 from AppComputadoras.views import *
 
+
 # Lista de URL para las operaciones de creación de objetos en la API
 urlpatterns = [
     path('api/CrearMouse',AppComputers_API_CrearMouse.as_view(), name='CrearMouse'),
