@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-u*e*^@&e#lw9kg5&yvf$lz51=s)_ressipo!a4t0e^)#=&!z0b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.10.249']
 
 
 # Application definition
@@ -85,14 +85,14 @@ WSGI_APPLICATION = 'CIM_PROJECT.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}
+}'''
 
-""" DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'database_CIM',
@@ -102,7 +102,7 @@ DATABASES = {
         'DATABASE_PORT':'5432'
 
     }
-} """
+}
 
 
 # Password validation
