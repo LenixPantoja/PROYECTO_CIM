@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-u*e*^@&e#lw9kg5&yvf$lz51=s)_ressipo!a4t0e^)#=&!z0b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.10.249']
 
 
 # Application definition
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'AppMantenimientos',
     'AppResponsables',
     'AppUsuarios',
+    'drf_yasg',
     'rest_framework',
 ]
 
@@ -92,7 +93,8 @@ DATABASES = {
     }
 }
 
-""" DATABASES = {
+
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'database_CIM',
@@ -102,7 +104,7 @@ DATABASES = {
         'DATABASE_PORT':'5432'
 
     }
-} """
+}"""
 
 
 # Password validation
