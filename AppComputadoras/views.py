@@ -6,12 +6,17 @@ from rest_framework import status
 from django.http import Http404
 from rest_framework import generics
 from django.http import JsonResponse
-""" Modelos y serializers """
+# Modelos y serializers
+# ---------------------------------------------------------------
 from AppComputadoras.serializers import *
 from AppComputadoras.models import *
-""" Otras Librerias """
+# ---------------------------------------------------------------
+# Otras Librerias
+# ---------------------------------------------------------------
 from django.core.files.storage import default_storage
 from pathlib import *
+# ---------------------------------------------------------------
+
 
 """
 Clase para la creacion de un Mouse a traves de la API
@@ -23,152 +28,71 @@ class Mouse()
 """
 class AppComputers_API_CrearMouse(APIView):
     def post(self, request, format = None):
-
-        try:
-            # Crear un objeto MouseSerializers con los datos de entrada
-            serializer = MouseSerializers(data = request.data)
-
-            if serializer.is_valid():
-                dataMouse = request.data
-                # Se crea una ruta de archivo para los archivos de imagen que se guardaran con el serial del mouse
-                files_path = 'mouses/' + dataMouse['serial_mouse'] + '/'
-                # Guardar las imagenes en el almacenamiento predeterminado 'mouses/'
-                default_storage.save(files_path + f'{dataMouse["serial_mouse"]}_registro_fotografico_mouse.png', dataMouse['registro_fotografico_mouse'])
-                default_storage.save(files_path + f'{dataMouse["serial_mouse"]}_foto_requisicion_mouse.png', dataMouse['foto_requisicion_mouse'])
-                default_storage.save(files_path + f'{dataMouse["serial_mouse"]}_foto_acta_salida.png', dataMouse['foto_acta_salida'])
-                default_storage.save(files_path + f'{dataMouse["serial_mouse"]}_foto_acta_recepcion.png', dataMouse['foto_acta_recepcion'])
-                default_storage.save(files_path + f'{dataMouse["serial_mouse"]}_foto_factura.png', dataMouse['foto_factura'])
-                # Crea un objeto Mouse con los datos de entrada y lo guarda en la base de datos
-                mouse = Mouse(
-                    marca_mouse = dataMouse['marca_mouse'],
-                    modelo_mouse = dataMouse['modelo_mouse'],
-                    serial_mouse = dataMouse['serial_mouse'],
-                    fecha_adquisicion_mouse =  dataMouse['fecha_adquisicion_mouse'],
-                    fecha_instalacion_mouse = dataMouse['fecha_instalacion_mouse'],
-                    fecha_garantia_mouse = dataMouse['fecha_garantia_mouse'],
-                    registro_fotografico_mouse  = files_path + 'registro_fotografico_mouse.png',
-                    foto_requisicion_mouse = files_path + 'foto_requisicion_mouse.png',
-                    foto_acta_salida = files_path + 'foto_acta_salida.png',
-                    foto_acta_recepcion = files_path + 'foto_acta_recepcion.png',
-                    foto_factura = files_path + 'foto_factura.png',
-                )
-                mouse.save()
-                return Response({'mensaje': 'Se creo el mouse :)'})
-        except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        # Crear un objeto MouseSerializers con los datos de entrada
+        serializer = MouseSerializers(data = request.data)
+        if serializer.is_valid():
+            validated_data = serializer.validated_data
+            mouse = Mouse(**validated_data)
+            mouse.save()
+            serializer_response = MouseSerializers(mouse)
+            return Response(serializer_response.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+    # Obtener todos los datos del mouse
+    def get(self, request, format =None):
+        mouses = Mouse.objects.all()
+        serializer = MouseSerializers(mouses, many=True)
+        
+        print(serializer.data)
+        return Response(serializer.data)
         
 class AppComputers_API_CrearTeclado(APIView):
     def post(self, request, format = None):
-        try:
-            # Crea un objeto TecladoSerializer con los datos de entrada
-            serializer = TecladoSerializers(data = request.data)
-
-            if serializer.is_valid():
-                dataTeclado = request.data
-                # Se crea una ruta de archivo para los archivos de imagen que se guardaran con el serial del teclado
-                files_path = 'teclados/' + dataTeclado['serial_teclado'] + '/'
-                # Guardar las imagenes en el almacenamiento predeterminado 'teclados/'
-                default_storage.save(files_path + f'{dataTeclado["serial_teclado"]}_registro_fotografico_teclado.png', dataTeclado['registro_fotografico_teclado'])
-                default_storage.save(files_path + f'{dataTeclado["serial_teclado"]}_foto_requisicion_teclado.png', dataTeclado['foto_requisicion_teclado'])
-                default_storage.save(files_path + f'{dataTeclado["serial_teclado"]}_foto_acta_salida_teclado.png', dataTeclado['foto_acta_salida_teclado'])
-                default_storage.save(files_path + f'{dataTeclado["serial_teclado"]}_foto_acta_recepcion_teclado.png', dataTeclado['foto_acta_recepcion_teclado'])
-                default_storage.save(files_path + f'{dataTeclado["serial_teclado"]}_foto_factura_teclado.png', dataTeclado['foto_factura_teclado'])
-                # Crea un objeto Teclado con los datos de entrada y lo guarda en la base de datos
-                teclado = Teclado(
-                    marca_teclado = dataTeclado['marca_teclado'],
-                    modelo_teclado = dataTeclado['modelo_teclado'],
-                    serial_teclado = dataTeclado['serial_teclado'],
-                    fecha_adquisicion_teclado = dataTeclado['fecha_adquisicion_teclado'],
-                    fecha_instalacion_teclado = dataTeclado['fecha_instalacion_teclado'],
-                    fecha_garantia_teclado = dataTeclado['fecha_garantia_teclado'],
-                    registro_fotografico_teclado = files_path + 'registro_fotografico_teclado.png',
-                    foto_requisicion_teclado = files_path + 'foto_requisicion_teclado.png',
-                    foto_acta_salida_teclado = files_path + 'foto_acta_salida_teclado.png',
-                    foto_acta_recepcion_teclado = files_path + 'foto_acta_recepcion_teclado.png',
-                    foto_factura_teclado = files_path + 'foto_factura_teclado.png'
-                )
-                teclado.save()
-            return Response({'mensaje': 'Se creo el teclado'})
-        except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = TecladoSerializers(data = request.data)
+        if serializer.is_valid():
+            validated_data = serializer.validated_data
+            teclado = Teclado(**validated_data)
+            teclado.save()
+            serializer_response = TecladoSerializers(teclado)
+            return Response(serializer_response.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+    
+    def get(self, request, format =None):
+        teclado = Teclado.objects.all()
+        serializer = TecladoSerializers(teclado, many=True)
+        return Response(serializer.data)
         
 class AppComputers_API_CrearMonitor(APIView):
     def post(self, request, format = None):
-        try:
-            # Crea un objeto MonitorSerializer con los datos de entrada
-            serializer = MonitorSerializers(data = request.data)
-
-            if serializer.is_valid():
-                dataMonitor = request.data
-                # Se crea una ruta de archivo para los archivos de imagen que se guardaran con el serial del monitor
-                files_path = 'monitores/' + dataMonitor['serial_monitor'] + '/'
-                # Guardar las imagenes en el almacenamiento predeterminado 'monitores/'
-                default_storage.save(files_path + f'{dataMonitor["serial_monitor"]}_registro_fotografico_monitor.png', dataMonitor['registro_fotografico_monitor'])
-                default_storage.save(files_path + f'{dataMonitor["serial_monitor"]}_foto_requisicion_monitor.png', dataMonitor['foto_requisicion_monitor'])
-                default_storage.save(files_path + f'{dataMonitor["serial_monitor"]}_foto_acta_salida_monitor.png', dataMonitor['foto_acta_salida_monitor'])
-                default_storage.save(files_path + f'{dataMonitor["serial_monitor"]}_foto_acta_recepcion_monitor.png', dataMonitor['foto_acta_recepcion_monitor'])
-                default_storage.save(files_path + f'{dataMonitor["serial_monitor"]}_foto_factura_monitor.png', dataMonitor['foto_factura_monitor'])
-                # Crea un objeto Monitor con los datos de entrada y lo guarda en la base de datos
-                monitor = Monitor(
-                    codigo_interno_monitor = dataMonitor['codigo_interno_monitor'],
-                    marca_monitor = dataMonitor['marca_monitor'],
-                    modelo_monitor = dataMonitor['modelo_monitor'],
-                    serial_monitor = dataMonitor['serial_monitor'],
-                    descripcion_monitor = dataMonitor['descripcion_monitor'],
-                    fecha_adquisicion_monitor = dataMonitor['fecha_adquisicion_monitor'],
-                    fecha_instalacion_monitor = dataMonitor['fecha_instalacion_monitor'],
-                    fecha_garantia_monitor = dataMonitor['fecha_garantia_monitor'],
-                    registro_fotografico_monitor = files_path + 'registro_fotografico_monitor.png',
-                    foto_requisicion_monitor = files_path + 'foto_requisicion_monitor.png',
-                    foto_acta_salida_monitor = files_path + 'foto_acta_salida_monitor.png',
-                    foto_acta_recepcion_monitor = files_path + 'foto_acta_recepcion_monitor.png',
-                    foto_factura_monitor = files_path + 'foto_factura_monitor.png'
-                )
-                monitor.save()
-            return Response({'mensaje': 'Se creo el monitor'})
-        except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = MonitorSerializers(data = request.data)
+        if serializer.is_valid():
+            validated_data = serializer.validated_data
+            monitor = Monitor(**validated_data)
+            monitor.save()
+            serializer_response = MonitorSerializers(monitor)
+            return Response(serializer_response.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+    
+    def get(self, request, format = None):
+        teclado = Monitor.objects.all()
+        serializer = MonitorSerializers(teclado, many=True)
+        return Response(serializer.data)
         
 class AppComputers_API_CrearTorre(APIView):
-    def post(self, request, format =  None):
-        try:
-            # Crea un objeto TorreSerializers con los datos de entrada
-            serializer = TorreSerializers(data = request.data)
-
-            if serializer.is_valid():
-                dataTorre = request.data
-                # Se crea una ruta de archivo para los archivos de imagen que se guardaran con el serial de la torre
-                files_path = 'torres/' + dataTorre['serial_torre'] + '/'
-                # Guardar las imagenes en el almacenamiento predeterminado 'torres/'
-                default_storage.save(files_path + f'{dataTorre["serial_torre"]}_registro_fotografico_torre.png', dataTorre['registro_fotografico_torre'])
-                default_storage.save(files_path + f'{dataTorre["serial_torre"]}_foto_requisicion_torre.png', dataTorre['foto_requisicion_torre'])
-                default_storage.save(files_path + f'{dataTorre["serial_torre"]}_foto_acta_salida_torre.png', dataTorre['foto_acta_salida_torre'])
-                default_storage.save(files_path + f'{dataTorre["serial_torre"]}_foto_acta_recepcion_torre.png', dataTorre['foto_acta_recepcion_torre'])
-                default_storage.save(files_path + f'{dataTorre["serial_torre"]}_foto_factura_torre.png', dataTorre['foto_factura_torre'])
-                # Crea un objeto Torre con los datos de entrada y lo guarda en la base de datos
-                torre = Torre(
-                    codigo_interno_torre = dataTorre['codigo_interno_torre'],
-                    dominio_torre = dataTorre['dominio_torre'],
-                    nombre_equipo = dataTorre['nombre_equipo'],
-                    marca_torre = dataTorre['marca_torre'],
-                    modelo_torre = dataTorre['modelo_torre'],
-                    serial_torre = dataTorre['serial_torre'],
-                    direccion_ip_torre = dataTorre['direccion_ip_torre'],
-                    direccion_mac_torre = dataTorre['direccion_mac_torre'],
-                    descripcion_torre = dataTorre['descripcion_torre'],
-                    fecha_adquisicion_torre = dataTorre['fecha_adquisicion_torre'],
-                    fecha_instalacion_torre = dataTorre['fecha_instalacion_torre'],
-                    fecha_garantia_torre = dataTorre['fecha_garantia_torre'],
-                    registro_fotografico_torre = files_path + 'registro_fotografico_torre.png',
-                    foto_requisicion_torre = files_path + 'foto_requisicion_torre.png',
-                    foto_acta_salida_torre = files_path + 'foto_acta_salida_torre.png',
-                    foto_acta_recepcion_torre = files_path + 'foto_acta_recepcion_torre.png',
-                    foto_factura_torre = files_path + 'foto_factura_torre.png'
-                )
-                torre.save()
-            return Response({'mensaje': 'Se creo la torre'})
-        except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)      
+    def post(self, request, format = None):
+        serializer = TorreSerializers(data = request.data)
+        if serializer.is_valid():
+            validated_data = serializer.validated_data
+            torre = Torre(**validated_data)
+            torre.save()
+            serializer_response = TorreSerializers(torre)
+            return Response({"Mensaje: ":"Torre Creada 🚀"}, status=status.HTTP_201_CREATED)
+        return Response({"Mensaje":"!Ups¡ no se pudo realizar la acción.", "Error":serializer.errors}, status= status.HTTP_400_BAD_REQUEST)
+    
+    def get(self, request, format = None):
+        torre = Torre.objects.all()
+        serializer = TorreSerializers(torre, many=True)
+        return Response(serializer.data)
+    
         
 class AppComputers_API_CiudadSede(APIView):
     def post(self, request, format = None):
