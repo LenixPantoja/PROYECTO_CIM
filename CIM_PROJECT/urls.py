@@ -19,19 +19,22 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.decorators.csrf import csrf_exempt
 
-""" Se agregan librerias para documentar apis """
+""" Librerias para documentar apis """
 from django.urls import re_path
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-# Definicion de las URL principales de la aplicación
+# Se agregan librerias para acceder a las imagenes por medio de WEBSERVICES
+from django.conf import settings
+from django.conf.urls.static import static
 
+# Esquema para la visualización de las apis documentadas
 schema_view = get_schema_view(
    openapi.Info(
       title="CONTROL DE INVENTARIO Y MANTENIMIMENTOS API",
       default_version='v1',
-      description="Aplicativo para CI & M \n Maintenance: Lenix Pantoja \n Daniel Solarte \n Edwin Pupiales",
+      description="Aplicativo para CI & M \n Maintenance: Lenix Pantoja",
       terms_of_service="https://www.clinizad.com/",
       contact=openapi.Contact(email="sistemas@clinizad.com"),
       license=openapi.License(name="Licenced to LABORATORIO DE ESPECILAIDADES CLINIZAD"),
@@ -40,6 +43,7 @@ schema_view = get_schema_view(
    permission_classes=(permissions.AllowAny,),
 )
 
+# Definicion de las URL principales de la aplicación
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('AppComputadoras.urls')),
@@ -48,6 +52,9 @@ urlpatterns = [
     
     # Rutas swagger para documentacion apis
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

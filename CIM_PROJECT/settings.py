@@ -145,7 +145,7 @@ STATIC_URL = 'static/'
 
 # Ruta para almacenar las imagenes
 
-MEDIA_URL = '/ARTICULOS/'
+MEDIA_URL = '/archivos/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
