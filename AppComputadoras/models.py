@@ -163,7 +163,7 @@ class Monitor(models.Model):
             self.save_image('foto_factura_monitor', 'foto_factura_monitor')
 
         super(Monitor, self).save(*args, **kwargs)
-        
+
     def save_image(self, field_name, folder_name):
         archivo_imagen = getattr(self, field_name)
         if archivo_imagen:
