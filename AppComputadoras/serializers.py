@@ -84,12 +84,22 @@ class ComputadorSerializers(serializers.ModelSerializer):
 
 # Definicion serializador para el modelo Impresoras
 class ImpresorasSerializers(serializers.ModelSerializer):
+    registro_fotografico_impresora = Base64ImageField(required = False)
+    foto_requisicion_impresora = Base64ImageField(required = False)
+    foto_acta_salida_impresora = Base64ImageField(required = False)
+    foto_acta_recepcion_impresora = Base64ImageField(required = False)
+    foto_factura_impresora = Base64ImageField(required = False)
     class Meta:
         model = Impresoras
         fields = ('__all__')
 
 # Definicion serializador para el modelo Accesorio
 class AccesoriosSerializers(serializers.ModelSerializer):
+    registro_fotografico_accesorio = Base64ImageField(required = False)
+    foto_requisicion_accesorio = Base64ImageField(required = False)
+    foto_acta_salida_accesorio = Base64ImageField(required = False)
+    foto_acta_recepcion_accesorio = Base64ImageField(required = False)
+    foto_factura_accesorio = Base64ImageField(required = False)
     class Meta:
         model = Accesorios
         fields = ('__all__')

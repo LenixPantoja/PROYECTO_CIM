@@ -49,6 +49,7 @@ urlpatterns = [
     path('', include('AppComputadoras.urls')),
     path('', include('AppMantenimientos.urls')),
     path('', include('AppResponsables.urls')),
+    path('', include('AppUsuarios.urls')),
     
     # Rutas swagger para documentacion apis
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),

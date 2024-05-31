@@ -13,6 +13,7 @@ from AppMantenimientos.models import *
 
 # Definir la vista para la creación de actividad
 class AppMantenimientos_API_CrearActividad(APIView):
+    # Metodo POST
     def post(self, request, format = None):
         try:
             # Crear una instancia del serializador con los datos de la solicitud
@@ -31,8 +32,44 @@ class AppMantenimientos_API_CrearActividad(APIView):
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
+    # Metodo GET    
+    def get(self, request, format=None):
+       try:
+            lista_resposables = []
+            actividades = Actividades.objects.all()
+            serializer = ActividadesSerializers(actividades, many=True)
+            return Response(serializer.data)    
+       except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Metodo PUT
+    def put(self, request, pk, format = None):
+        try:
+            actividad = Actividades.objects.get(pk = pk)
+            serializer = ActividadesSerializers(actividad, data = request.data)
+            serializer.save()
+            return Response(serializer.data)
+        except Actividades.DoesNotExist:
+            return Response ("La actividad no existe", status = status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response ({'Error': str(e)}, status = status.HTTP_400_BAD_REQUEST) 
+    
+    # Metodo DELETE    
+    def delete(self, request, pk, fomat = None):
+        try:
+            actividad = Actividades.objects.get(pk=pk)
+            actividad.delete()
+            return Response({"Msg": 'Registro eliminado correctamente'}, status = status.HTTP_200_OK)
+        except Actividades.DoesNotExist:
+            return Response({'error': 'No existe la actividad'}, status=status.HTTP_400_BAD_REQUEST)    
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+# --------------------------------------------------------------------------------------------------------------------------- #
+
 # Definir la vista para la creación de mantenimiento
 class AppMantenimientos_API_CrearMantenimiento(APIView):
+    # Metodo POST
     def post(self, request, format = None):
         try:
             # Crear una instancia del serializador con los datos de la solicitud
@@ -57,13 +94,41 @@ class AppMantenimientos_API_CrearMantenimiento(APIView):
                     no_aplica = dataMantenimiento['no_aplica'],
                 )
                 mantenimiento.save()
-                mantenimiento.actividad.add(actividades)
-                
-                
-                
+                mantenimiento.actividad.add(actividades)     
             return Response({'mensaje': 'Se creo el mantenimiento :)'})
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
+    # Metodo GET
+    def get(self, request, format=None):
+        try:
+            # Obtener todas las actividades
+            mantenimientos = Mantenimiento.objects.all()
+            serializer = MantenimientoSerializers(mantenimientos, many=True)
+            return Response(serializer.data)    
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
+    # Metodo PUT
+    def put(self, request, pk, format=None):
+        try:
+            mantenimiento =Mantenimiento.objects.get(pk = pk)
+            serializers = MantenimientoSerializers(mantenimiento, data = request.data)
+            serializers.is_valid(raise_exception=True)
+            serializers.save()
+            return Response(serializers.data)
+        except Mantenimiento.DoesNotExist:
+            return Response("el mantenimiento no existe", status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
+    # Metodo DELETE    
+    def delete(self, request, pk, format=None):
+        try:
+            mantenimiento = Mantenimiento.objects.get(pk = pk)
+            mantenimiento.delete()
+            return Response({"Msg": 'Registro eliminado correctamente'}, status=status.HTTP_200_OK)
+        except Mantenimiento.DoesNotExist:
+            return Response({"Error": "El mantenimiento no existe"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)

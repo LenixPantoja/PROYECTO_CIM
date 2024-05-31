@@ -86,15 +86,15 @@ WSGI_APPLICATION = 'CIM_PROJECT.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}
+}"""
 
 
-"""DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'database_CIM',
@@ -102,9 +102,8 @@ DATABASES = {
         'PASSWORD':'admin',
         'HOST':'127.0.0.1',
         'DATABASE_PORT':'5432'
-
     }
-}"""
+}
 
 
 # Password validation

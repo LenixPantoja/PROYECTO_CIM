@@ -18,7 +18,8 @@ class Mouse(models.Model):
     foto_acta_salida = models.ImageField(blank=True, null=True, upload_to='RegistroFotograficosMouses/')
     foto_acta_recepcion = models.ImageField(blank=True, null=True, upload_to='RegistroFotograficosMouses/')
     foto_factura = models.ImageField(blank=True, null=True, upload_to='RegistroFotograficosMouses/')
-    fecha_creacion_mouse = models.DateTimeField(auto_now=True)
+    # Uso de "auto_now_add"para que la fecha de creacin quede fija 
+    fecha_creacion_mouse = models.DateTimeField(auto_now_add=True)
     fecha_modificacion_mouse = models.DateTimeField(auto_now=True) 
 
     class Meta:
@@ -79,7 +80,8 @@ class Teclado(models.Model):
     foto_acta_salida_teclado = models.ImageField(blank=True, null=True, upload_to='RegistroFotograficoTeclados/')
     foto_acta_recepcion_teclado = models.ImageField(blank=True, null=True, upload_to='RegistroFotograficoTeclados/')
     foto_factura_teclado = models.ImageField(blank=True, null=True, upload_to='RegistroFotograficoTeclados/')
-    fecha_creacion_teclado = models.DateTimeField(auto_now=True)
+    # Uso de "auto_now_add"para que la fecha de creacin quede fija 
+    fecha_creacion_teclado = models.DateTimeField(auto_now_add=True)
     fecha_modificacion_teclado = models.DateTimeField(auto_now=True)
     
     class Meta:
@@ -140,7 +142,8 @@ class Monitor(models.Model):
     foto_acta_salida_monitor = models.ImageField(blank=True, null=True)
     foto_acta_recepcion_monitor = models.ImageField(blank=True, null=True)
     foto_factura_monitor = models.ImageField(blank=True, null=True)
-    fecha_creacion_monitor = models.DateTimeField(auto_now=True)
+    # Uso de "auto_now_add"para que la fecha de creacin quede fija 
+    fecha_creacion_monitor = models.DateTimeField(auto_now_add=True)
     fecha_modificacion_monitor = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -205,7 +208,8 @@ class Torre(models.Model):
     foto_acta_salida_torre = models.ImageField(blank=True, null=True)
     foto_acta_recepcion_torre = models.ImageField(blank=True, null=True)
     foto_factura_torre = models.ImageField(blank=True, null=True)
-    fecha_creacion_torre = models.DateTimeField(auto_now=True)
+    # Uso de "auto_now_add"para que la fecha de creacin quede fija 
+    fecha_creacion_torre = models.DateTimeField(auto_now_add=True)
     fecha_modificacion_torre = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -265,7 +269,8 @@ class Ciudad(models.Model):
 # Modelo que represemta la creacion de una sede
 class Sede(models.Model):
     nombre_sede = models.CharField(max_length=100)
-    ciudad = models.ManyToManyField(Ciudad, verbose_name="Ciudades")
+    ciudad = models.ForeignKey(Ciudad, on_delete = models.CASCADE)
+
     class Meta:
         verbose_name = 'Sede'
         verbose_name_plural = 'Sedes'
@@ -276,8 +281,9 @@ class Sede(models.Model):
 # Modelo que representa la creacion de una area
 class Area(models.Model):
     nombre_area = models.CharField(max_length=200)
-    sedes = models.ManyToManyField(Sede, related_name='areas')
-    fecha_creacion_area = models.DateTimeField(auto_now=True)
+    sedes = models.ForeignKey(Sede, on_delete = models.CASCADE)
+    # Uso de "auto_now_add"para que la fecha de creacin quede fija 
+    fecha_creacion_area = models.DateTimeField(auto_now_add=True)
     fecha_modificacion_area = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -290,7 +296,8 @@ class Area(models.Model):
 # Modelo que representa la creacion del workstation
 class Workstation(models.Model):
     puesto_trabajo = models.CharField(max_length=200)
-    fecha_creacion_workstation = models.DateTimeField(auto_now=True)
+    # Uso de "auto_now_add"para que la fecha de creacin quede fija 
+    fecha_creacion_workstation = models.DateTimeField(auto_now_add=True)
     fecha_modificacion_workstation = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -304,11 +311,11 @@ class Workstation(models.Model):
 class Computador(models.Model):
     area = models.ForeignKey(Area, verbose_name="Area", on_delete=models.CASCADE)
     workstation = models.ForeignKey(Workstation, verbose_name= "Workstation", on_delete=models.CASCADE)
-    monitor = models.OneToOneField(Monitor, verbose_name= "Monitor",on_delete=models.CASCADE)
-    teclado = models.OneToOneField(Teclado, verbose_name= "Teclado",on_delete=models.CASCADE)
-    mouse = models.OneToOneField(Mouse, verbose_name="Mouse",  on_delete=models.CASCADE)
-    torre = models.OneToOneField(Torre, verbose_name="Torre", on_delete=models.CASCADE)
-    responsable = models.ManyToManyField(Responsable, verbose_name="Responsable")
+    monitor = models.ForeignKey(Monitor, verbose_name= "Monitor",on_delete=models.CASCADE)
+    teclado = models.ForeignKey(Teclado, verbose_name= "Teclado",on_delete=models.CASCADE)
+    mouse = models.ForeignKey(Mouse, verbose_name="Mouse",  on_delete=models.CASCADE)
+    torre = models.ForeignKey(Torre, verbose_name="Torre", on_delete=models.CASCADE)
+    responsable = models.ForeignKey(Responsable, verbose_name="Responsable", on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Computador'
@@ -333,19 +340,56 @@ class Impresoras(models.Model):
     foto_acta_salida_impresora = models.ImageField(blank=True, null=True)
     foto_acta_recepcion_impresora = models.ImageField(blank=True, null=True)
     foto_factura_impresora = models.ImageField(blank=True, null=True)
-    fecha_creacion_impresora = models.DateTimeField(auto_now=True)
+    # Uso de "auto_now_add"para que la fecha de creacin quede fija 
+    fecha_creacion_impresora = models.DateTimeField(auto_now_add=True)
     fecha_modificacion_impresora = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'Impresora'
         verbose_name_plural = 'Impresoras'
+    
+    def save(self, *args, **kwargs):
+        if self.registro_fotografico_impresora:
+            self.save_image('foto_requisicion_impresora', 'foto_requisicion_impresora')
+
+        if self.foto_requisicion_impresora:
+            self.save_image('foto_requisicion_impresora', 'foto_requisicion_impresora')
+
+        if self.foto_acta_salida_impresora:
+            self.save_image('foto_acta_salida_impresora', 'foto_acta_salida_impresora')
+
+        if  self.foto_acta_recepcion_impresora:
+            self.save_image('foto_acta_recepcion_impresora', 'foto_acta_recepcion_impresora')
+
+        if self.foto_factura_impresora:
+            self.save_image('foto_factura_impresora', 'foto_factura_impresora')
+
+        super(Impresoras, self).save(*args, **kwargs)
+
+    def save_image(self, field_name, folder_name):
+        archivo_imagen = getattr(self, field_name)
+        if archivo_imagen:
+            serial_carpeta_impresora = os.path.join(settings.MEDIA_ROOT, 'RegistroFotograficoImpresora', f'Torre{self.serial_impresora}')
+            os.makedirs(serial_carpeta_impresora, exist_ok=True)
+            # Agrega al nombre de cada imagen un numero consecutivo.
+            archivo_exixtente = [file for file in os.listdir(serial_carpeta_impresora) if file.startswith(self.serial_impresora)]
+            suffix = len(archivo_exixtente) + 1
+            # Guardar la imagen en la carpeta con el nombre del serialmouse y sufijo
+            nombre_imagen = f'{self.serial_impresora}_{suffix}.png'
+            ruta_imagen = os.path.join(serial_carpeta_impresora, nombre_imagen)
+            # Guardar la imagen en la ruta especificada
+            with open(ruta_imagen, 'wb') as f:
+                for chunk in archivo_imagen.chunks():
+                    f.write(chunk)
+            # Actualizamos el campo de la imagen en el modelo
+            setattr(self, field_name, os.path.relpath(ruta_imagen, settings.MEDIA_ROOT))
 
     def __str__(self):
           return str(self.serial_impresora)
-    
+
 # Modelo que representa la creacion de un accesorio
 class Accesorios(models.Model):
-    computador = models.ForeignKey(Computador, verbose_name="Computador", on_delete=models.CASCADE)
+    computador = models.ForeignKey(Computador, verbose_name="computador", on_delete=models.CASCADE)
     codigo_interno_accesorio = models.CharField(max_length=50)
     nombre_accesorio = models.CharField(max_length=100)
     serial_accesorio = models.CharField(max_length=100)
@@ -360,12 +404,49 @@ class Accesorios(models.Model):
     foto_acta_salida_accesorio = models.ImageField(blank=True, null=True)
     foto_acta_recepcion_accesorio = models.ImageField(blank=True, null=True)
     foto_factura_accesorio = models.ImageField(blank=True, null=True)
-    fecha_creacion_accesorio = models.DateTimeField(auto_now=True)
+    # Uso de "auto_now_add"para que la fecha de creacin quede fija 
+    fecha_creacion_accesorio = models.DateTimeField(auto_now_add=True)
     fecha_modificacion_accesorio = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'Accesorio'
         verbose_name_plural = 'Accesorios'
+
+    def save(self, *args, **kwargs):
+        if self.registro_fotografico_accesorio:
+            self.save_image('registro_fotografico_accesorio', 'registro_fotografico_accesorio')
+
+        if self.foto_requisicion_accesorio:
+            self.save_image('foto_requisicion_accesorio', 'foto_requisicion_accesorio')
+
+        if self.foto_acta_salida_accesorio:
+            self.save_image('foto_acta_salida_accesorio', 'foto_acta_salida_accesorio')
+
+        if self.foto_acta_recepcion_accesorio:
+            self.save_image('foto_acta_recepcion_accesorio', 'foto_acta_recepcion_accesorio')
+
+        if self.foto_factura_accesorio:
+            self.save_image('foto_factura_accesorio', 'foto_factura_accesorio')
+
+        super(Accesorios, self).save(*args, **kwargs)
+
+    def save_image(self, field_name, folder_name):
+        archivo_imagen = getattr(self, field_name)
+        if archivo_imagen:
+            serial_carpeta_accesorio = os.path.join(settings.MEDIA_ROOT, 'RegistroFotograficoAccesorio', f'Accesorio{self.serial_accesorio}')
+            os.makedirs(serial_carpeta_accesorio, exist_ok=True)
+            # Agrega al nombre de cada imagen un numero consecutivo.
+            archivo_exixtente = [file for file in os.listdir(serial_carpeta_accesorio) if file.startswith(self.serial_accesorio)]
+            suffix = len(archivo_exixtente) + 1
+            # Guardar la imagen en la carpeta con el nombre del serialmouse y sufijo
+            nombre_imagen = f'{self.serial_accesorio}_{suffix}.png'
+            ruta_imagen = os.path.join(serial_carpeta_accesorio, nombre_imagen)
+            # Guardar la imagen en la ruta especificada
+            with open(ruta_imagen, 'wb') as f:
+                for chunk in archivo_imagen.chunks():
+                    f.write(chunk)
+            # Actualizamos el campo de la imagen en el modelo
+            setattr(self, field_name, os.path.relpath(ruta_imagen, settings.MEDIA_ROOT))
 
     def __str__(self):
           return str(self.serial_accesorio)

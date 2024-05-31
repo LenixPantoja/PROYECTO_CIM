@@ -15,23 +15,71 @@ from pathlib import *
 
 # Definir la clase de la vista basada en API para crear un Responsable
 class AppResponsables_API_CrearResponsable(APIView):
+    # Metodo POST
     def post(self, request, format = None):
         try:
             # Serializar los datos recibidos en la solicitud
             serializer = ResponsableSerializers(data = request.data)
             if serializer.is_valid():
                 dataResponsable = request.data
-                # Ruta donde se almacenarán los archivos de firma
-                files_path = 'firmas/'
-                # Guardar la firma como un archivo en el sistema de archivos
-                default_storage.save(files_path + f'{dataResponsable["nombres_completos"]}.png', dataResponsable['firma_responsable'])
-                # Crear una objeto de Responsable con los datos proporcionados y los guarda en la base de datos
+                
                 responsable = Responsable(
                     nombres_completos = dataResponsable['nombres_completos'],
                     numero_documento = dataResponsable['numero_documento'],
-                    firma_responsable = files_path + 'firma_responsable.png',
+                    firma_responsable = dataResponsable['firma_responsable']
                 )
                 responsable.save()
             return Response({'mensaje': 'Se creo el Responsable :)'})
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Metodo GET
+    """def get(self, request, format=None):
+        try:
+            responsables = Responsable.objects.all()
+            serializer = ResponsableSerializers(responsables, many = True)
+            return Response(serializer.data)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)"""
+    def get(self, request, format=None):
+        try:
+            lista_responsables = []
+            responsables = Responsable.objects.all()
+            for miResponsable in responsables:
+                firma = miResponsable.firma_responsable
+                firma_url = None
+                if firma:
+                    firma_url = firma.url
+                lista_responsables.append({
+                    "id": miResponsable.id,
+                    "nombres_completos": miResponsable.nombres_completos,
+                    "numero_documento": miResponsable.numero_documento,
+                    "firma_responsable": firma_url
+                })
+            return Response(lista_responsables)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Metodo PUT
+    def put(self, request, pk, format=None):
+        try:
+            responsable = Responsable.objects.get(pk = pk)
+            serializers = ResponsableSerializers(responsable, data=request.data)
+            serializers.is_valid(raise_exception = True)
+            serializers.save()
+            return Response(serializers.data)
+        except Responsable.DoesNotExist:
+            return Response({'error': 'El Responsable no existe'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Metodo DELETE
+    def delete(self, request, pk, format=None):
+        try:
+            responsable = Responsable.objects.get(pk = pk)
+            responsable.delete()
+            return Response({"Msg": 'Registro eliminado correctamente'}, status = status.HTTP_200_OK)
+        except Responsable.DoesNotExist:
+            return Response({'error': 'El Responsable no existe'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
