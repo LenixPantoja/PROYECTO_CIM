@@ -13,4 +13,3 @@ class PersonaSerializer(serializers.Serializer):
     class Meta:
         model = Persona
         fields = '__all__'
-

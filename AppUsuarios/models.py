@@ -25,7 +25,8 @@ class Persona(models.Model):
     direccion_residencia = models.CharField(max_length=250)
     numero_celular = models.CharField(max_length=30)
     correo_electronico = models.EmailField()
-    fecha_creacion_persona = models.DateTimeField(auto_now=True)
+    # Uso de "auto_now_add"para que la fecha de creacin quede fija 
+    fecha_creacion_persona = models.DateTimeField(auto_now_add=True)
     fecha_modificacion_persona = models.DateTimeField(auto_now=True)
 
     class Meta:

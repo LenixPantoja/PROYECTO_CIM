@@ -9,7 +9,8 @@ class Actividades(models.Model):
     nombre_actividad = models.TextField()
     descripcion_actividad = models.TextField()
     tipo_actividad = models.CharField(max_length=100)
-    fecha_creacion_actividad = models.DateTimeField(auto_now=True)
+    # Uso de "auto_now_add"para que la fecha de creacin quede fija 
+    fecha_creacion_actividad = models.DateTimeField(auto_now_add=True)
     fecha_modificacion_actividad = models.DateTimeField(auto_now=True)
 
 # Definir el modelo "Mantenimiento" para el registro de mantenimientos
@@ -19,7 +20,8 @@ class Mantenimiento(models.Model):
     fecha_mantenimiento = models.DateField()
     observaciones = models.TextField()
     tecnico_mantenimiento = models.ForeignKey(Persona, verbose_name="TecnicoDeMantenimientos", on_delete=models.CASCADE)
-    fecha_creacion_mantenimiento = models.DateTimeField(auto_now=True)
+    # Uso de "auto_now_add"para que la fecha de creacin quede fija 
+    fecha_creacion_mantenimiento = models.DateTimeField(auto_now_add=True)
     fecha_modificacion_mantenimiento = models.DateTimeField(auto_now=True)
     actividad = models.ManyToManyField(Actividades, verbose_name="Actividades")
     cumple = models.BooleanField()
